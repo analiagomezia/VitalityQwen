@@ -1,0 +1,120 @@
+{
+  "Navbar": {
+    "nosotros": "About Us",
+    "servicios": "Services",
+    "proyectos": "Portfolio",
+    "contacto": "Contact",
+    "cta": "Create your Landing Now!"
+  },
+  "Hero": {
+    "badge": "Elite Digital Agency",
+    "titlePart1": "Your landing page ready in",
+    "titlePart2": "48 hours",
+    "description": "We create disruptive digital experiences that scale your business to a higher level. Speed, cutting-edge design, and state-of-the-art technology.",
+    "cta": "Start Project"
+  },
+  "About": {
+    "badge": "About Vitality Global",
+    "titlePrefix": "Experts in Landing Pages that ",
+    "titleSuffix": "Sell",
+    "description": "We specialize in creating fast, clear, and functional landing pages, specifically designed to capture leads and maximize your sales.",
+    "features": {
+      "velocidad": {
+        "title": "Speed",
+        "description": "48-hour delivery guaranteed. We don't waste time so you can start converting."
+      },
+      "simplicidad": {
+        "title": "Simplicity",
+        "description": "Frictionless process. You give us your idea and we take care of everything else."
+      },
+      "precio": {
+        "title": "Clear Pricing",
+        "description": "$200 USD all-inclusive. Hosting and domain for one year with no fine print or surprises."
+      }
+    }
+  },
+  "Portfolio": {
+    "badge": "Our Portfolio",
+    "titlePrefix": "Projects that make a ",
+    "titleSuffix": "Difference",
+    "projects": {
+      "flowia": {
+        "description": "Creating hyper-realistic AI-powered avatars for cutting-edge brands."
+      },
+      "iagom": {
+        "description": "Optimizing business workflows using autonomous intelligent agents."
+      },
+      "techwarrior": {
+        "description": "Digital warfare strategies to dominate competitive markets with technology."
+      },
+      "amsterdam": {
+        "description": "Premium booking experience redefining European luxury in the digital world."
+      },
+      "odontapp": {
+        "description": "Interactive software revolutionizing management and care in dental clinics."
+      },
+      "creativeforge": {
+        "description": "Forge of disruptive visual content generated entirely by artificial intelligence."
+      }
+    },
+    "categories": {
+      "avatares": "Digital Avatars",
+      "marketing": "Digital Marketing",
+      "healthtech": "HealthTech",
+      "automations": "Automations",
+      "tourism": "Tourism & Hospitality",
+      "genai": "Generative AI"
+    }
+  },
+  "Services": {
+    "badge": "Our Services",
+    "titlePrefix": "Everything you need in ",
+    "titleSuffix": "One Place",
+    "plan": {
+      "title": "Vitality Pro Plan",
+      "price": "$200",
+      "description": "Our offer is simple and transparent. No hidden costs, no technical complications. We take care of everything so you can focus on your business.",
+      "cta": "Get Started"
+    },
+    "features": {
+      "landing": "Professional Landing Page",
+      "speed": "48-Hour Delivery",
+      "hosting": "Hosting Included (1 year)",
+      "domain": "Domain Included (1 year)",
+      "responsive": "Premium & Responsive Design",
+      "seo": "Base SEO Optimization"
+    },
+    "disclaimer": "* Hosting and domain are included for the first year. Afterwards, the renewal cost is the market standard."
+  },
+  "Footer": {
+    "description": "We transform ideas into landings that capture customers. Professional delivery in 48 hours with everything you need to start selling.",
+    "rights": "All rights reserved.",
+    "madeWith": "Made with",
+    "by": "by",
+    "links": {
+      "legal": "Legal Notice",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service"
+    }
+  },
+  "Contact": {
+    "badge": "Contact",
+    "titlePrefix": "Ready for your ",
+    "titleSuffix": "Landing Page?",
+    "description": "We do it all. You just sell. Leave us your details and start transforming your business today.",
+    "emailLabel": "Email",
+    "phoneLabel": "Phone",
+    "whatsappLabel": "WhatsApp",
+    "whatsappCta": "Chat with us",
+    "form": {
+      "nameLabel": "Full Name",
+      "namePlaceholder": "Your name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@email.com",
+      "messageLabel": "Message / Project Idea",
+      "messagePlaceholder": "Tell us a bit about what you need...",
+      "submit": "Contact Us Now!",
+      "success": "Thank you! We will get in touch with you soon."
+    }
+  }
+}
