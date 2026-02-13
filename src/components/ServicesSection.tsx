@@ -56,13 +56,14 @@ const ServicesSection = () => {
                                         {t('plan.description')}
                                     </p>
                                     <div className="flex justify-start">
-                                        <motion.button
+                                        <motion.a
+                                            href="https://www.paypal.com/ncp/payment/9GERMGPQKRLDQ"
                                             whileHover={{ scale: 1.05 }}
                                             whileTap={{ scale: 0.95 }}
                                             className="px-8 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl text-base shadow-lg shadow-indigo-600/20 transition-all font-bold"
                                         >
                                             {t('plan.cta')}
-                                        </motion.button>
+                                        </motion.a>
                                     </div>
                                 </div>
 

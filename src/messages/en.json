@@ -55,6 +55,12 @@
       },
       "creativeforge": {
         "description": "Forge of disruptive visual content generated entirely by artificial intelligence."
+      },
+      "entrevistai": {
+        "description": "AI-powered SaaS platform to automate and optimize digital interview workflows."
+      },
+      "carlamedinacouch": {
+        "description": "Professional couching website focused on guidance, clarity, and personal transformation."
       }
     },
     "categories": {
@@ -63,7 +69,9 @@
       "healthtech": "HealthTech",
       "automations": "Automations",
       "tourism": "Tourism & Hospitality",
-      "genai": "Generative AI"
+      "genai": "Generative AI",
+      "saasia": "SAAS IA",
+      "couching": "Couching"
     }
   },
   "Services": {

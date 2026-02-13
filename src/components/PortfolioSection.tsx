@@ -27,6 +27,7 @@ const PortfolioSection = () => {
             category: "automations",
             image: "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?auto=format&fit=crop&q=80&w=800",
             gradient: "from-blue-500 to-cyan-600",
+            demoUrl: "https://www.iagom.com",
         },
         {
             id: 3,
@@ -59,6 +60,24 @@ const PortfolioSection = () => {
             category: "genai",
             image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800",
             gradient: "from-rose-500 to-pink-600",
+        },
+        {
+            id: 7,
+            title: "ENTREVISTAI",
+            key: "entrevistai",
+            category: "saasia",
+            image: "/images/portfolio/entrevistai.svg",
+            gradient: "from-lime-500 to-green-600",
+            demoUrl: "https://entrevistai.iagom.com",
+        },
+        {
+            id: 8,
+            title: "carla medina Couch",
+            key: "carlamedinacouch",
+            category: "couching",
+            image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=800",
+            gradient: "from-fuchsia-500 to-violet-600",
+            demoUrl: "https://carlamedina.netlify.app/",
         }
     ];
 
@@ -147,14 +166,26 @@ const PortfolioSection = () => {
                                             </p>
                                         </div>
                                         <div className="pt-6 border-t border-white/5 flex flex-col items-center gap-4">
-                                            <motion.button
-                                                whileHover={{ scale: 1.05 }}
-                                                whileTap={{ scale: 0.95 }}
-                                                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl text-sm shadow-lg shadow-indigo-600/20 transition-all flex items-center justify-center space-x-2"
-                                            >
-                                                <span>Demo</span>
-                                                <ChevronRightIcon className="h-4 w-4" />
-                                            </motion.button>
+                                            {project.demoUrl ? (
+                                                <motion.a
+                                                    href={project.demoUrl}
+                                                    whileHover={{ scale: 1.05 }}
+                                                    whileTap={{ scale: 0.95 }}
+                                                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl text-sm shadow-lg shadow-indigo-600/20 transition-all flex items-center justify-center space-x-2"
+                                                >
+                                                    <span>Demo</span>
+                                                    <ChevronRightIcon className="h-4 w-4" />
+                                                </motion.a>
+                                            ) : (
+                                                <motion.button
+                                                    whileHover={{ scale: 1.05 }}
+                                                    whileTap={{ scale: 0.95 }}
+                                                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl text-sm shadow-lg shadow-indigo-600/20 transition-all flex items-center justify-center space-x-2"
+                                                >
+                                                    <span>Demo</span>
+                                                    <ChevronRightIcon className="h-4 w-4" />
+                                                </motion.button>
+                                            )}
                                             <div className="flex items-center space-x-2">
                                                 <span className={`h-1.5 w-1.5 rounded-full bg-indigo-500 ${index % projects.length === originalIndex ? 'animate-ping' : ''}`} />
                                             </div>
