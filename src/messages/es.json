@@ -1,0 +1,130 @@
+{
+  "Navbar": {
+    "nosotros": "Nosotros",
+    "servicios": "Servicios",
+    "proyectos": "Proyectos",
+    "contacto": "Contacto",
+    "cta": "¡Crea tu Landing Ahora!"
+  },
+  "Hero": {
+    "badge": "Agencia Digital de Elite",
+    "titlePart1": "Tu landing page lista en",
+    "titlePart2": "48 hs",
+    "description": "Creamos experiencias digitales disruptivas que escalan tu negocio a un nivel superior. Velocidad, diseño de vanguardia y tecnología punta.",
+    "cta": "Empezar Proyecto"
+  },
+  "About": {
+    "badge": "Sobre Vitality Global",
+    "titlePrefix": "Expertos en Landing Pages que ",
+    "titleSuffix": "Venden",
+    "description": "Somos especialistas en crear landing pages rápidas, claras y funcionales, diseñadas específicamente para captar leads y maximizar tus ventas.",
+    "features": {
+      "velocidad": {
+        "title": "Velocidad",
+        "description": "Entrega en 48 horas garantizada. No perdemos tiempo para que vos empieces a convertir."
+      },
+      "simplicidad": {
+        "title": "Simplicidad",
+        "description": "Proceso sin fricción. Nos das tu idea y nosotros nos encargamos de todo el resto."
+      },
+      "precio": {
+        "title": "Precio Claro",
+        "description": "$200 USD por única vez. Entrega profesional en 48 horas sin costos ocultos."
+      }
+    }
+  },
+  "Portfolio": {
+    "badge": "Nuestro Portafolio",
+    "titlePrefix": "Proyectos que marcan la ",
+    "titleSuffix": "Diferencia",
+    "projects": {
+      "flowia": {
+        "description": "Creación de avatares hiperrealistas impulsados por IA para marcas de vanguardia."
+      },
+      "iagom": {
+        "description": "Optimización de flujos de trabajo empresariales mediante agentes autónomos inteligentes."
+      },
+      "techwarrior": {
+        "description": "Agencia especializada en potenciar negocios mediante la integración de inteligencia artificial y automatización de procesos inteligentes."
+      },
+      "amsterdam": {
+        "description": "Experiencia de reserva premium redefine el lujo europeo en el mundo digital."
+      },
+      "odontapp": {
+        "description": "Software interactivo que revoluciona la gestión y atención en clínicas odontológicas."
+      },
+      "creativeforge": {
+        "description": "Forja de contenidos visuales disruptivos generados íntegramente por inteligencia artificial."
+      },
+      "entrevistai": {
+        "description": "Plataforma SaaS con IA para automatizar y optimizar procesos de entrevistas digitales."
+      },
+      "carlamedinacouch": {
+        "description": "Sitio profesional de couching enfocado en acompañamiento, claridad y transformación personal."
+      }
+    },
+    "categories": {
+      "avatares": "Avatares Digitales",
+      "marketing": "Marketing Digital",
+      "healthtech": "HealthTech",
+      "automations": "Automatizaciones",
+      "tourism": "Turismo & Hospitality",
+      "genai": "Generative AI",
+      "saasia": "SAAS IA",
+      "couching": "Couching"
+    }
+  },
+  "Services": {
+    "badge": "Nuestros Servicios",
+    "titlePrefix": "Todo lo que necesitas en un ",
+    "titleSuffix": "Solo Lugar",
+    "plan": {
+      "title": "OFERTA VITALITY",
+      "price": "$200",
+      "description": "Nuestra oferta es simple y transparente. Sin costos ocultos, sin complicaciones técnicas. Nosotros nos encargamos de todo para que vos te enfoques en tu negocio.",
+      "cta": "Contratar Servicio"
+    },
+    "features": {
+      "landing": "Landing Page Profesional",
+      "speed": "Entrega en 48 Horas",
+      "responsive": "Diseño Premium & Responsive",
+      "seo": "Optimización SEO Base",
+      "whatsapp": "Botón de Whatsapp",
+      "contact_form": "Formulario de contacto"
+    },
+    "disclaimer": "*Esta oferta no incluye cargos por mantenimiento e infraestructura."
+  },
+  "Footer": {
+    "description": "Transformamos ideas en landings que capturan clientes. Entrega profesional en 48 horas con todo lo que necesitas para empezar a vender.",
+    "rights": "Todos los derechos reservados.",
+    "madeWith": "Hecho con",
+    "by": "por",
+    "links": {
+      "legal": "Aviso Legal",
+      "privacy": "Privacidad",
+      "terms": "Términos"
+    }
+  },
+  "Contact": {
+    "badge": "Contacto",
+    "titlePrefix": "¿Listo para tu ",
+    "titleSuffix": "Landing page?",
+    "description": "Empezá a transformar tu negocio hoy mismo.",
+    "cardLabel": "Landing page",
+    "emailLabel": "Email",
+    "phoneLabel": "Teléfono",
+    "whatsappLabel": "WhatsApp",
+    "whatsappCta": "Chatea con nosotros",
+    "hireService": "Contratar servicio",
+    "form": {
+      "nameLabel": "Nombre Completo",
+      "namePlaceholder": "Tu nombre",
+      "emailLabel": "Email",
+      "emailPlaceholder": "tu@email.com",
+      "messageLabel": "Mensaje / Idea del Proyecto",
+      "messagePlaceholder": "Contanos un poco sobre lo que necesitas...",
+      "submit": "¡Contáctanos Ahora!",
+      "success": "¡Gracias! Nos pondremos en contacto con vos pronto."
+    }
+  }
+}

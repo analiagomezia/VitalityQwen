@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulario de Activación – Vitality Global</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --color-bg: #0D1B2A;
+      --color-surface: #151F30;
+      --color-surface-2: #1C2940;
+      --color-purple: #7B2FBE;
+      --color-pink: #E91E8C;
+      --color-cyan: #00D4FF;
+      --color-grad-start: #6C63FF;
+      --color-grad-end: #FF3CAC;
+      --color-text: #F0F4FF;
+      --color-muted: #8899BB;
+      --color-border: #2A3A55;
+      --color-error: #FF5370;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+    }
+
+    /* ── Gradiente de marca ── */
+    .brand-gradient {
+      background: linear-gradient(135deg, var(--color-grad-start) 0%, var(--color-grad-end) 100%);
+    }
+    .brand-gradient-text {
+      background: linear-gradient(135deg, var(--color-grad-start) 0%, var(--color-grad-end) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .brand-gradient-border {
+      border-image: linear-gradient(135deg, var(--color-grad-start), var(--color-grad-end)) 1;
+    }
+
+    /* ── Tipografía ── */
+    .font-display { font-family: 'Orbitron', sans-serif; }
+
+    /* ── Cards de sección ── */
+    .section-card {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 0 30px rgba(108,99,255,0.08);
+      transition: box-shadow 0.3s ease;
+    }
+    .section-card:hover {
+      box-shadow: 0 0 40px rgba(108,99,255,0.15);
+    }
+
+    /* ── Separador de sección ── */
+    .section-divider {
+      height: 2px;
+      background: linear-gradient(90deg, var(--color-grad-start), var(--color-grad-end), transparent);
+      margin: 1rem 0 1.5rem 0;
+      border-radius: 2px;
+    }
+
+    /* ── Número de sección ── */
+    .section-number {
+      color: var(--color-cyan);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    /* ── Labels ── */
+    label.field-label {
+      display: block;
+      color: var(--color-muted);
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+    }
+    .required-mark { color: var(--color-pink); margin-left: 2px; }
+
+    /* ── Inputs / Textareas / Selects ── */
+    .form-input {
+      width: 100%;
+      background-color: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      color: var(--color-text);
+      padding: 0.65rem 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+      outline: none;
+    }
+    .form-input::placeholder { color: var(--color-muted); opacity: 0.6; }
+    .form-input:focus {
+      border-color: var(--color-grad-start);
+      box-shadow: 0 0 0 3px rgba(108,99,255,0.2);
+    }
+    select.form-input option {
+      background-color: var(--color-surface-2);
+      color: var(--color-text);
+    }
+    textarea.form-input { resize: vertical; min-height: 100px; }
+
+    /* ── File Input ── */
+    .file-input-wrapper {
+      background-color: var(--color-surface-2);
+      border: 1px dashed var(--color-border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.25s ease;
+    }
+    .file-input-wrapper:hover { border-color: var(--color-grad-start); }
+    .file-input-wrapper input[type="file"] { display: none; }
+
+    /* ── Radio Cards ── */
+    .radio-card {
+      background-color: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      transition: border-color 0.25s ease, background-color 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      user-select: none;
+    }
+    .radio-card:hover { border-color: var(--color-purple); }
+    .radio-card.selected {
+      border-color: var(--color-grad-start);
+      background-color: rgba(108,99,255,0.1);
+    }
+    .radio-dot {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      border: 2px solid var(--color-border);
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.2s ease;
+    }
+    .radio-card.selected .radio-dot {
+      border-color: var(--color-grad-start);
+    }
+    .radio-dot-inner {
+      width: 9px; height: 9px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--color-grad-start), var(--color-grad-end));
+      display: none;
+    }
+    .radio-card.selected .radio-dot-inner { display: block; }
+
+    /* ── Toggle Switch ── */
+    .toggle-group {
+      display: flex; gap: 0.5rem; flex-wrap: wrap;
+    }
+    .toggle-btn {
+      padding: 0.45rem 1.1rem;
+      border-radius: 8px;
+      border: 1px solid var(--color-border);
+      background-color: var(--color-surface-2);
+      color: var(--color-muted);
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .toggle-btn:hover { border-color: var(--color-purple); color: var(--color-text); }
+    .toggle-btn.active {
+      border-color: var(--color-grad-start);
+      background: linear-gradient(135deg, rgba(108,99,255,0.2), rgba(255,60,172,0.1));
+      color: var(--color-text);
+    }
+
+    /* ── Checkbox Custom ── */
+    .custom-checkbox-wrapper {
+      display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer;
+    }
+    .custom-checkbox {
+      width: 20px; height: 20px; border-radius: 5px;
+      border: 2px solid var(--color-border);
+      background-color: var(--color-surface-2);
+      flex-shrink: 0; margin-top: 1px;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .custom-checkbox.checked {
+      background: linear-gradient(135deg, var(--color-grad-start), var(--color-grad-end));
+      border-color: transparent;
+    }
+    .custom-checkbox svg { display: none; }
+    .custom-checkbox.checked svg { display: block; }
+
+    /* ── Campos condicionales ── */
+    .conditional-field {
+      display: none;
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .conditional-field.visible {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Error ── */
+    .field-error {
+      color: var(--color-error);
+      font-size: 0.78rem;
+      margin-top: 0.3rem;
+      display: none;
+    }
+    .field-error.show { display: block; }
+    .form-input.error { border-color: var(--color-error); }
+
+    /* ── Badge ── */
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(0,212,255,0.12);
+      border: 1px solid rgba(0,212,255,0.3);
+      color: var(--color-cyan);
+      border-radius: 999px;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.8rem; font-weight: 500;
+    }
+
+    /* ── Notice Box ── */
+    .notice-box {
+      border-left: 4px solid var(--color-cyan);
+      background: rgba(0,212,255,0.06);
+      border-radius: 0 10px 10px 0;
+      padding: 0.9rem 1.1rem;
+      font-size: 0.85rem;
+      color: var(--color-muted);
+    }
+
+    /* ── Botón principal ── */
+    .btn-primary {
+      background: linear-gradient(135deg, var(--color-grad-start) 0%, var(--color-grad-end) 100%);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 0.9rem 2rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(108,99,255,0.3);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(233,30,140,0.4);
+    }
+    .btn-primary:disabled {
+      background: var(--color-border);
+      color: var(--color-muted);
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
+    }
+
+    /* ── Botón secundario ── */
+    .btn-secondary {
+      background-color: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+      color: var(--color-text);
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .btn-secondary:hover { border-color: var(--color-grad-start); color: var(--color-grad-start); }
+
+    /* ── Confirmación ── */
+    .confirm-card {
+      border: 1px solid rgba(108,99,255,0.4);
+      background: rgba(108,99,255,0.06);
+      border-radius: 16px;
+      padding: 1.5rem 2rem;
+    }
+
+    /* ── Header ── */
+    .header-bg {
+      background: linear-gradient(180deg, rgba(108,99,255,0.1) 0%, transparent 100%);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    /* ── Success ── */
+    #success-message {
+      display: none;
+    }
+    .success-card {
+      background: linear-gradient(135deg, rgba(108,99,255,0.15), rgba(233,30,140,0.1));
+      border: 1px solid rgba(108,99,255,0.3);
+      border-radius: 24px;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+    .success-icon {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--color-grad-start), var(--color-grad-end));
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
+      box-shadow: 0 0 40px rgba(108,99,255,0.4);
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--color-bg); }
+    ::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--color-purple); }
+
+    /* ── Animations ── */
+    @keyframes fadeInUp {
+      from { opacity:0; transform: translateY(20px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+    .fade-in { animation: fadeInUp 0.5s ease forwards; }
+
+    /* ── Glow orbs ── */
+    .orb {
+      position: fixed; border-radius: 50%;
+      filter: blur(80px); pointer-events: none; z-index: 0; opacity: 0.15;
+    }
+    .orb-1 { width:400px;height:400px; background:var(--color-purple); top:-100px; left:-100px; }
+    .orb-2 { width:300px;height:300px; background:var(--color-pink); bottom:10%; right:-50px; }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <!-- ══════════════════════════════════════
+       HEADER
+  ══════════════════════════════════════ -->
+  <header class="header-bg relative z-10">
+    <div class="max-w-3xl mx-auto px-4 py-8 text-center">
+
+      <!-- Logo SVG inline (basado en la "V" + órbita del logo real) -->
+      <div class="flex items-center justify-center gap-3 mb-6">
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="vgrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#6C63FF"/>
+              <stop offset="100%" stop-color="#FF3CAC"/>
+            </linearGradient>
+          </defs>
+          <!-- V shape -->
+          <path d="M8 10 L26 40 L44 10 L36 10 L26 28 L16 10 Z" fill="url(#vgrad)" opacity="0.95"/>
+          <!-- Orbit ring -->
+          <ellipse cx="26" cy="26" rx="22" ry="9" stroke="url(#vgrad)" stroke-width="2.5" fill="none" transform="rotate(-20 26 26)" opacity="0.7"/>
+          <!-- Star spark -->
+          <circle cx="40" cy="12" r="2" fill="#00D4FF"/>
+          <line x1="40" y1="8" x2="40" y2="10" stroke="#00D4FF" stroke-width="1.5"/>
+          <line x1="40" y1="14" x2="40" y2="16" stroke="#00D4FF" stroke-width="1.5"/>
+          <line x1="36" y1="12" x2="38" y2="12" stroke="#00D4FF" stroke-width="1.5"/>
+          <line x1="42" y1="12" x2="44" y2="12" stroke="#00D4FF" stroke-width="1.5"/>
+        </svg>
+        <div class="text-left">
+          <div class="font-display brand-gradient-text text-xl font-black tracking-widest">VITALITY</div>
+          <div class="font-display text-xs tracking-[0.4em] text-[var(--color-muted)]">GLOBAL</div>
+        </div>
+      </div>
+
+      <!-- Title -->
+      <h1 class="font-display text-xl sm:text-2xl font-bold brand-gradient-text mb-3 leading-tight">
+        FORMULARIO DE ACTIVACIÓN DEL PROYECTO
+      </h1>
+      <p class="text-sm text-[var(--color-muted)] max-w-xl mx-auto mb-5 leading-relaxed">
+        A continuación, le solicitamos completar el siguiente formulario, que nos permitirá recopilar la información necesaria para diseñar y desarrollar su landing page profesional de manera estratégica, alineada con su objetivo comercial. El plazo de entrega de 48 horas comienza una vez confirmado el pago y recibido este formulario completo con toda la información solicitada.
+      </p>
+      <span class="badge">⏱ Entrega en 48hs hábiles tras confirmación</span>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════
+       MAIN CONTENT
+  ══════════════════════════════════════ -->
+  <main class="relative z-10 max-w-3xl mx-auto px-4 py-10">
+
+    <!-- SUCCESS MESSAGE -->
+    <div id="success-message">
+      <div class="success-card fade-in">
+        <div class="success-icon">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <path d="M8 21L16 29L32 13" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h2 class="font-display text-2xl font-bold brand-gradient-text mb-4">¡Formulario enviado con éxito!</h2>
+        <p class="text-[var(--color-muted)] max-w-md mx-auto leading-relaxed">
+          Gracias por completar el formulario de activación. Su landing será entregada dentro de las <strong class="text-[var(--color-cyan)]">48 horas</strong> posteriores a la confirmación del pago y la recepción completa de toda la información necesaria.
+        </p>
+        <div class="mt-6 badge mx-auto w-fit">✦ Vitality Global Team</div>
+      </div>
+    </div>
+
+    <!-- FORM -->
+    <form id="activation-form" novalidate>
+
+      <!-- ══ SECCIÓN 1: Información general ══ -->
+      <div class="section-card fade-in">
+        <div class="section-number mb-1">SECCIÓN 01</div>
+        <h2 class="font-display text-base font-semibold brand-gradient-text">Información General del Proyecto</h2>
+        <div class="section-divider"></div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div>
+            <label class="field-label" for="biz-name">Nombre del negocio o proyecto <span class="required-mark">*</span></label>
+            <input class="form-input" id="biz-name" name="biz-name" type="text" placeholder="Ej. Consultora XYZ" required />
+            <div class="field-error" id="err-biz-name">Este campo es requerido.</div>
+          </div>
+          <div>
+            <label class="field-label" for="contact-name">Nombre de la persona de contacto <span class="required-mark">*</span></label>
+            <input class="form-input" id="contact-name" name="contact-name" type="text" placeholder="Ej. Juan Pérez" required />
+            <div class="field-error" id="err-contact-name">Este campo es requerido.</div>
+          </div>
+          <div>
+            <label class="field-label" for="contact-email">Correo electrónico <span class="required-mark">*</span></label>
+            <input class="form-input" id="contact-email" name="contact-email" type="email" placeholder="nombre@empresa.com" required />
+            <div class="field-error" id="err-contact-email">Ingrese un email válido.</div>
+          </div>
+          <div>
+            <label class="field-label" for="contact-phone">Celular de contacto <span class="required-mark">*</span></label>
+            <input class="form-input" id="contact-phone" name="contact-phone" type="tel" placeholder="+1 305 555 1234" required />
+            <div class="field-error" id="err-contact-phone">Este campo es requerido.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ SECCIÓN 2: Objetivo principal ══ -->
+      <div class="section-card">
+        <div class="section-number mb-1">SECCIÓN 02</div>
+        <h2 class="font-display text-base font-semibold brand-gradient-text">Objetivo Principal de la Landing</h2>
+        <div class="section-divider"></div>
+        <p class="text-xs text-[var(--color-muted)] mb-4">Seleccione una opción. Solo puede elegir una.</p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="objective-cards">
+          <div class="radio-card" data-value="leads" onclick="selectObjective(this)">
+            <div class="radio-dot"><div class="radio-dot-inner"></div></div>
+            <span class="text-sm">📋 Generar contactos (leads)</span>
+          </div>
+          <div class="radio-card" data-value="servicio" onclick="selectObjective(this)">
+            <div class="radio-dot"><div class="radio-dot-inner"></div></div>
+            <span class="text-sm">🛠 Vender un servicio</span>
+          </div>
+          <div class="radio-card" data-value="producto" onclick="selectObjective(this)">
+            <div class="radio-dot"><div class="radio-dot-inner"></div></div>
+            <span class="text-sm">📦 Vender un producto</span>
+          </div>
+          <div class="radio-card" data-value="llamadas" onclick="selectObjective(this)">
+            <div class="radio-dot"><div class="radio-dot-inner"></div></div>
+            <span class="text-sm">📞 Reserva a través de llamadas</span>
+          </div>
+          <div class="radio-card" data-value="agendar" onclick="selectObjective(this)">
+            <div class="radio-dot"><div class="radio-dot-inner"></div></div>
+            <span class="text-sm">📅 Agendar un servicio</span>
+          </div>
+          <div class="radio-card" data-value="otro" onclick="selectObjective(this)">
+            <div class="radio-dot"><div class="radio-dot-inner"></div></div>
+            <span class="text-sm">✦ Otro</span>
+          </div>
+        </div>
+        <input type="hidden" id="objective-value" name="objective" />
+        <div class="field-error mt-2" id="err-objective">Seleccione un objetivo.</div>
+
+        <!-- Condicionales Sección 2 -->
+        <!-- LEADS -->
+        <div class="conditional-field mt-5 space-y-4" id="cond-leads">
+          <div>
+            <label class="field-label" for="leads-email">¿A qué correo se enviarán los contactos? <span class="required-mark">*</span></label>
+            <input class="form-input" id="leads-email" name="leads-email" type="email" placeholder="contacto@empresa.com" />
+          </div>
+          <div>
+            <label class="field-label">¿Incluir teléfono de contacto?</label>
+            <div class="toggle-group">
+              <button type="button" class="toggle-btn" onclick="toggleYesNo(this,'cond-leads-phone')">Sí</button>
+              <button type="button" class="toggle-btn active" onclick="toggleYesNo(this,'cond-leads-phone',true)">No</button>
+            </div>
+            <div class="conditional-field mt-3" id="cond-leads-phone">
+              <input class="form-input" name="leads-phone" type="tel" placeholder="+1 305 555 0000" />
+            </div>
+          </div>
+          <div>
+            <label class="field-label">¿Incluir dirección física?</label>
+            <div class="toggle-group">
+              <button type="button" class="toggle-btn" onclick="toggleYesNo(this,'cond-leads-address')">Sí</button>
+              <button type="button" class="toggle-btn active" onclick="toggleYesNo(this,'cond-leads-address',true)">No</button>
+            </div>
+            <div class="conditional-field mt-3" id="cond-leads-address">
+              <input class="form-input" name="leads-address" type="text" placeholder="Dirección física" />
+            </div>
+          </div>
+        </div>
+
+        <!-- SERVICIO -->
+        <div class="conditional-field mt-5" id="cond-servicio">
+          <label class="field-label" for="servicio-desc">Descripción breve del servicio <span class="required-mark">*</span></label>
+          <textarea class="form-input" id="servicio-desc" name="servicio-desc" placeholder="Describa el servicio que ofrece..."></textarea>
+        </div>
+
+        <!-- PRODUCTO -->
+        <div class="conditional-field mt-5 space-y-4" id="cond-producto">
+          <div>
+            <label class="field-label">¿Cuenta con cuenta activa en PayPal / Stripe / MercadoPago?</label>
+            <div class="toggle-group">
+              <button type="button" class="toggle-btn" onclick="toggleYesNo(this,'cond-producto-payment')">Sí</button>
+              <button type="button" class="toggle-btn active" onclick="toggleYesNo(this,'cond-producto-payment',true)">No</button>
+            </div>
+            <div class="conditional-field mt-3" id="cond-producto-payment">
+              <input class="form-input" name="producto-payment" type="text" placeholder="Detalles de la plataforma de pago" />
+            </div>
+          </div>
+        </div>
+
+        <!-- LLAMADAS -->
+        <div class="conditional-field mt-5" id="cond-llamadas">
+          <label class="field-label" for="llamadas-link">Enlace de Calendly u otra herramienta <span class="required-mark">*</span></label>
+          <input class="form-input" id="llamadas-link" name="llamadas-link" type="url" placeholder="https://calendly.com/..." />
+        </div>
+
+        <!-- AGENDAR -->
+        <div class="conditional-field mt-5" id="cond-agendar">
+          <label class="field-label" for="agendar-link">Enlace del calendario de disponibilidad <span class="required-mark">*</span></label>
+          <input class="form-input" id="agendar-link" name="agendar-link" type="url" placeholder="https://..." />
+        </div>
+
+        <!-- OTRO -->
+        <div class="conditional-field mt-5" id="cond-otro-obj">
+          <label class="field-label" for="otro-obj-text">Especifique su objetivo <span class="required-mark">*</span></label>
+          <input class="form-input" id="otro-obj-text" name="otro-obj" type="text" placeholder="Describa su objetivo..." />
+        </div>
+      </div>
+
+      <!-- ══ SECCIÓN 3: CTA ══ -->
+      <div class="section-card">
+        <div class="section-number mb-1">SECCIÓN 03</div>
+        <h2 class="font-display text-base font-semibold brand-gradient-text">Llamado a la Acción (CTA)</h2>
+        <div class="section-divider"></div>
+        <p class="text-xs text-[var(--color-muted)] mb-4">¿Qué acción desea que realice el usuario?</p>
+
+        <div>
+          <label class="field-label" for="cta-select">Seleccione el CTA <span class="required-mark">*</span></label>
+          <select class="form-input" id="cta-select" name="cta" onchange="handleCTAChange()" required>
+            <option value="">— Seleccionar —</option>
+            <option value="llamada">Reservar una llamada</option>
+            <option value="comprar">Comprar ahora</option>
+            <option value="comenzar">Comenzar</option>
+            <option value="contactar">Contactarnos</option>
+            <option value="agendar">Agendar servicio</option>
+            <option value="otro">Otro</option>
+          </select>
+          <div class="field-error" id="err-cta">Seleccione una opción.</div>
+        </div>
+
+        <div class="conditional-field mt-4" id="cond-cta-otro">
+          <label class="field-label" for="cta-otro-text">Especifique su CTA <span class="required-mark">*</span></label>
+          <input class="form-input" id="cta-otro-text" name="cta-otro" type="text" placeholder="Ej. Solicitar cotización" />
+        </div>
+      </div>
+
+      <!-- ══ SECCIÓN 4: Dominio ══ -->
+      <div class="section-card">
+        <div class="section-number mb-1">SECCIÓN 04</div>
+        <h2 class="font-display text-base font-semibold brand-gradient-text">Dominio</h2>
+        <div class="section-divider"></div>
+
+        <div class="space-y-5">
+          <div>
+            <label class="field-label mb-3">¿Tiene dominio actualmente? <span class="required-mark">*</span></label>
+            <div class="toggle-group">
+              <button type="button" class="toggle-btn" id="domain-si" onclick="selectDomain('si')">Sí, tengo dominio</button>
+              <button type="button" class="toggle-btn" id="domain-no" onclick="selectDomain('no')">No tengo dominio</button>
+            </div>
+            <input type="hidden" id="domain-value" name="has-domain" />
+
+            <div class="conditional-field mt-4" id="cond-domain-si">
+              <label class="field-label" for="domain-url">Ingrese su URL <span class="required-mark">*</span></label>
+              <input class="form-input" id="domain-url" name="domain-url" type="url" placeholder="https://midominio.com" />
+            </div>
+            <div class="conditional-field mt-4" id="cond-domain-no">
+              <label class="field-label" for="domain-desired">¿Qué nombre de dominio le gustaría registrar? <span class="required-mark">*</span></label>
+              <input class="form-input" id="domain-desired" name="domain-desired" type="text" placeholder="Ej. miempresa.com" />
+            </div>
+          </div>
+
+          <div>
+            <label class="field-label mb-2">¿Cuenta con sitio web activo?</label>
+            <div class="toggle-group">
+              <button type="button" class="toggle-btn" onclick="toggleYesNo(this,'cond-website')">Sí</button>
+              <button type="button" class="toggle-btn active" onclick="toggleYesNo(this,'cond-website',true)">No</button>
+            </div>
+            <div class="conditional-field mt-3" id="cond-website">
+              <label class="field-label mb-2">¿El dominio se encuentra activo y disponible para utilizar?</label>
+              <div class="toggle-group">
+                <button type="button" class="toggle-btn" onclick="setActive(this)">Sí, está activo</button>
+                <button type="button" class="toggle-btn active" onclick="setActive(this)">No, no está activo</button>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label class="field-label mb-2">Idioma preferido de la página</label>
+            <div class="toggle-group" id="lang-group">
+              <button type="button" class="toggle-btn" onclick="toggleLang(this,'en')">🇺🇸 Inglés</button>
+              <button type="button" class="toggle-btn" onclick="toggleLang(this,'es')">🇦🇷 Español</button>
+              <button type="button" class="toggle-btn" onclick="toggleLang(this,'both')">🌐 Ambos</button>
+            </div>
+            <input type="hidden" id="lang-value" name="lang" />
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ SECCIÓN 6: Propuesta ══ -->
+      <div class="section-card">
+        <div class="section-number mb-1">SECCIÓN 06</div>
+        <h2 class="font-display text-base font-semibold brand-gradient-text">Propuesta Principal y Diferenciación</h2>
+        <div class="section-divider"></div>
+
+        <div class="space-y-5">
+          <div>
+            <label class="field-label" for="value-prop">¿Qué ofrece o qué problema resuelve? <span class="required-mark">*</span></label>
+            <textarea class="form-input" id="value-prop" name="value-prop" placeholder="En una sola frase, indique qué ofrece o qué problema resuelve su servicio/producto..." required></textarea>
+            <div class="field-error" id="err-value-prop">Este campo es requerido.</div>
+          </div>
+          <div>
+            <label class="field-label" for="differentiator">¿Qué hace que su servicio sea diferente o mejor? <span class="required-mark">*</span></label>
+            <textarea class="form-input" id="differentiator" name="differentiator" placeholder="Describa su ventaja competitiva, propuesta única de valor..." required></textarea>
+            <div class="field-error" id="err-differentiator">Este campo es requerido.</div>
+          </div>
+          <div>
+            <label class="field-label mb-2">¿Cuenta con testimonios, resultados o datos concretos?</label>
+            <div class="toggle-group">
+              <button type="button" class="toggle-btn" onclick="toggleYesNo(this,'cond-testimonials')">Sí</button>
+              <button type="button" class="toggle-btn active" onclick="toggleYesNo(this,'cond-testimonials',true)">No</button>
+            </div>
+            <div class="conditional-field mt-3" id="cond-testimonials">
+              <label class="field-label" for="testimonials-text">Ingrese sus testimonios o datos</label>
+              <textarea class="form-input" id="testimonials-text" name="testimonials" placeholder="Ingrese testimonios, métricas, casos de éxito..."></textarea>
+            </div>
+          </div>
+          <div>
+            <label class="field-label mb-2">¿Existe alguna promoción, descuento o fecha límite?</label>
+            <div class="toggle-group">
+              <button type="button" class="toggle-btn" onclick="toggleYesNo(this,'cond-promo')">Sí</button>
+              <button type="button" class="toggle-btn active" onclick="toggleYesNo(this,'cond-promo',true)">No</button>
+            </div>
+            <div class="conditional-field mt-3" id="cond-promo">
+              <label class="field-label" for="promo-text">Detalles de la promoción <span class="required-mark">*</span></label>
+              <input class="form-input" id="promo-text" name="promo" type="text" placeholder="Ej. 20% de descuento hasta el 30 de junio" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ SECCIÓN 7: Tono ══ -->
+      <div class="section-card">
+        <div class="section-number mb-1">SECCIÓN 07</div>
+        <h2 class="font-display text-base font-semibold brand-gradient-text">Tono de Comunicación</h2>
+        <div class="section-divider"></div>
+        <label class="field-label" for="tone-select">Seleccione el tono <span class="required-mark">*</span></label>
+        <select class="form-input" id="tone-select" name="tone" required>
+          <option value="">— Seleccionar —</option>
+          <option value="corporativo">Profesional / Corporativo</option>
+          <option value="amigable">Cercano / Amigable</option>
+          <option value="comercial">Directo / Comercial</option>
+          <option value="premium">Elegante / Premium</option>
+          <option value="energetico">Dinámico / Energético</option>
+        </select>
+        <div class="field-error" id="err-tone">Seleccione un tono.</div>
+      </div>
+
+      <!-- ══ SECCIÓN 8: Estilo visual ══ -->
+      <div class="section-card">
+        <div class="section-number mb-1">SECCIÓN 08</div>
+        <h2 class="font-display text-base font-semibold brand-gradient-text">Estilo Visual</h2>
+        <div class="section-divider"></div>
+        <div class="space-y-4">
+          <div>
+            <label class="field-label" for="style-select">Seleccione el estilo <span class="required-mark">*</span></label>
+            <select class="form-input" id="style-select" name="style" required>
+              <option value="">— Seleccionar —</option>
+              <option value="minimalista">Moderno / Minimalista</option>
+              <option value="audaz">Impactante / Audaz</option>
+              <option value="suave">Limpio / Suave</option>
+              <option value="tecnologico">Oscuro / Tecnológico</option>
+            </select>
+            <div class="field-error" id="err-style">Seleccione un estilo.</div>
+          </div>
+          <div>
+            <label class="field-label" for="style-ref">Enlace de referencia visual (opcional)</label>
+            <input class="form-input" id="style-ref" name="style-ref" type="url" placeholder="https://sitio-de-referencia.com" />
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ SECCIÓN 9: Logo e identidad ══ -->
+      <div class="section-card">
+        <div class="section-number mb-1">SECCIÓN 09</div>
+        <h2 class="font-display text-base font-semibold brand-gradient-text">Logo e Identidad Visual</h2>
+        <div class="section-divider"></div>
+
+        <div class="space-y-5">
+          <div>
+            <label class="field-label mb-2">Adjunte su logo</label>
+            <div class="file-input-wrapper" onclick="document.getElementById('logo-file').click()">
+              <input type="file" id="logo-file" name="logo" accept=".png,.jpg,.jpeg,.svg,.pdf" onchange="updateFileLabel(this,'logo-label')" />
+              <div class="text-[var(--color-muted)] text-sm" id="logo-label">
+                <div class="text-2xl mb-1">📁</div>
+                Haga clic para subir su logo<br/>
+                <span class="text-xs opacity-60">PNG, JPG, SVG, PDF</span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label class="field-label mb-2">¿Cuenta con colores de marca definidos?</label>
+            <div class="toggle-group">
+              <button type="button" class="toggle-btn" onclick="toggleYesNo(this,'cond-brand-colors')">Sí</button>
+              <button type="button" class="toggle-btn active" onclick="toggleYesNo(this,'cond-brand-colors',true)">No</button>
+            </div>
+            <div class="conditional-field mt-3" id="cond-brand-colors">
+              <label class="field-label" for="brand-colors">Colores de marca (hex o descripción)</label>
+              <input class="form-input" id="brand-colors" name="brand-colors" type="text" placeholder="Ej. #6C63FF, #FF3CAC — Púrpura y magenta" />
+            </div>
+          </div>
+
+          <div>
+            <label class="field-label mb-2">¿Desea que Vitality Global cree la identidad? <span class="text-xs text-[var(--color-pink)]">(Servicio con costo adicional)</span></label>
+            <div class="toggle-group">
+              <button type="button" class="toggle-btn" onclick="setActive(this)">Sí, me interesa</button>
+              <button type="button" class="toggle-btn active" onclick="setActive(this)">No por ahora</button>
+            </div>
+          </div>
+
+          <div class="notice-box">
+            💡 En caso de no proporcionar esta información, el diseño será definido por nuestro equipo siguiendo criterios de diseño profesional.
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ SECCIÓN 10: Datos técnicos ══ -->
+      <div class="section-card">
+        <div class="section-number mb-1">SECCIÓN 10</div>
+        <h2 class="font-display text-base font-semibold brand-gradient-text">Datos Técnicos e Integraciones</h2>
+        <div class="section-divider"></div>
+
+        <div class="space-y-5">
+          <div>
+            <label class="field-label mb-2">¿Posee hosting propio?</label>
+            <div class="toggle-group">
+              <button type="button" class="toggle-btn" onclick="toggleYesNo(this,'cond-hosting')">Sí</button>
+              <button type="button" class="toggle-btn active" onclick="toggleYesNo(this,'cond-hosting',true)">No</button>
+            </div>
+            <div class="conditional-field mt-3" id="cond-hosting">
+              <label class="field-label" for="hosting-access">Accesos al hosting <span class="required-mark">*</span></label>
+              <input class="form-input" id="hosting-access" name="hosting-access" type="text" placeholder="Panel, usuario, contraseña o link de acceso" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="field-label" for="tech-email">Correo para notificaciones técnicas</label>
+              <input class="form-input" id="tech-email" name="tech-email" type="email" placeholder="tecnico@empresa.com" />
+            </div>
+            <div>
+              <label class="field-label" for="whatsapp">WhatsApp para botón directo</label>
+              <input class="form-input" id="whatsapp" name="whatsapp" type="tel" placeholder="+1 305 555 1234" />
+            </div>
+          </div>
+
+          <div>
+            <label class="field-label mb-2">¿Tiene dirección física del negocio?</label>
+            <div class="toggle-group">
+              <button type="button" class="toggle-btn" onclick="toggleYesNo(this,'cond-physical-addr')">Sí</button>
+              <button type="button" class="toggle-btn active" onclick="toggleYesNo(this,'cond-physical-addr',true)">No</button>
+            </div>
+            <div class="conditional-field mt-3" id="cond-physical-addr">
+              <label class="field-label" for="physical-addr">Dirección física <span class="required-mark">*</span></label>
+              <input class="form-input" id="physical-addr" name="physical-addr" type="text" placeholder="Calle, ciudad, país" />
+            </div>
+          </div>
+
+          <div>
+            <label class="field-label mb-2">¿Desea integrar redes sociales?</label>
+            <div class="toggle-group">
+              <button type="button" class="toggle-btn" onclick="toggleYesNo(this,'cond-social')">Sí</button>
+              <button type="button" class="toggle-btn active" onclick="toggleYesNo(this,'cond-social',true)">No</button>
+            </div>
+            <div class="conditional-field mt-3" id="cond-social">
+              <div id="social-fields" class="space-y-3">
+                <div class="flex gap-2 items-center">
+                  <input class="form-input" name="social[]" type="url" placeholder="https://instagram.com/..." />
+                </div>
+              </div>
+              <button type="button" class="btn-secondary mt-3" onclick="addSocialField()">＋ Agregar red social</button>
+              <p class="text-xs text-[var(--color-muted)] mt-1">Máximo 8 enlaces</p>
+            </div>
+          </div>
+
+          <div>
+            <label class="field-label mb-2">¿Integración de pago?</label>
+            <div class="toggle-group">
+              <button type="button" class="toggle-btn" onclick="toggleYesNo(this,'cond-payment')">Sí</button>
+              <button type="button" class="toggle-btn active" onclick="toggleYesNo(this,'cond-payment',true)">No</button>
+            </div>
+            <div class="conditional-field mt-3" id="cond-payment">
+              <label class="field-label" for="payment-data">Datos de integración de pago <span class="required-mark">*</span></label>
+              <input class="form-input" id="payment-data" name="payment-data" type="text" placeholder="Plataforma, credenciales o detalles de integración" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ SECCIÓN 11: Imágenes y Videos ══ -->
+      <div class="section-card">
+        <div class="section-number mb-1">SECCIÓN 11</div>
+        <h2 class="font-display text-base font-semibold brand-gradient-text">Imágenes y Videos</h2>
+        <div class="section-divider"></div>
+
+        <div class="space-y-5">
+          <div>
+            <label class="field-label mb-2">¿Agregará imágenes?</label>
+            <div class="toggle-group">
+              <button type="button" class="toggle-btn" onclick="toggleYesNo(this,'cond-images')">Sí</button>
+              <button type="button" class="toggle-btn active" onclick="toggleYesNo(this,'cond-images',true)">No</button>
+            </div>
+            <div class="conditional-field mt-3" id="cond-images">
+              <label class="field-label" for="images-detail">Especifique cantidad y sección</label>
+              <input class="form-input" id="images-detail" name="images-detail" type="text" placeholder="Ej. 5 imágenes en hero y galería" />
+            </div>
+          </div>
+          <div>
+            <label class="field-label mb-2">¿Agregará videos?</label>
+            <div class="toggle-group">
+              <button type="button" class="toggle-btn" onclick="toggleYesNo(this,'cond-videos')">Sí</button>
+              <button type="button" class="toggle-btn active" onclick="toggleYesNo(this,'cond-videos',true)">No</button>
+            </div>
+            <div class="conditional-field mt-3" id="cond-videos">
+              <label class="field-label" for="videos-detail">Especifique cantidad y sección</label>
+              <input class="form-input" id="videos-detail" name="videos-detail" type="text" placeholder="Ej. 1 video en hero, YouTube embed" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ CONFIRMACIÓN Y ALCANCE ══ -->
+      <div class="confirm-card mb-6">
+        <h3 class="font-display text-sm font-semibold brand-gradient-text mb-4">✦ Confirmación y Alcance</h3>
+        <label class="custom-checkbox-wrapper" onclick="toggleConfirm()">
+          <div class="custom-checkbox" id="confirm-check">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M2 6L5 9L10 3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="text-sm text-[var(--color-muted)] leading-relaxed">
+            Confirmo que entiendo y acepto que este servicio incluye: <strong class="text-[var(--color-text)]">Una landing page</strong>, un único objetivo principal, ronda de contacto para validación (plazo 24hs), entrega en <strong class="text-[var(--color-text)]">48hs hábiles</strong> tras validación, y una ronda de ajustes menores.
+          </span>
+        </label>
+        <input type="checkbox" id="confirm-input" name="confirm" class="sr-only" />
+        <div class="field-error mt-3" id="err-confirm">Debe aceptar los términos para continuar.</div>
+      </div>
+
+      <!-- ══ BOTÓN ENVIAR ══ -->
+      <button type="submit" class="btn-primary w-full text-center" id="submit-btn" disabled>
+        Enviar Formulario de Activación →
+      </button>
+
+    </form><!-- /form -->
+  </main>
+
+  <!-- Footer -->
+  <footer class="relative z-10 text-center py-8 text-xs text-[var(--color-muted)] border-t border-[var(--color-border)] mt-4">
+    <span class="brand-gradient-text font-display font-semibold">VITALITY GLOBAL</span> &nbsp;·&nbsp; Todos los derechos reservados
+  </footer>
+
+  <!-- ══════════════════════════════════════
+       JAVASCRIPT
+  ══════════════════════════════════════ -->
+  <script>
+  // ======================================
+  // === MÓDULO: Utilidades generales ===
+  // ======================================
+
+  /** Muestra u oculta un campo condicional con animación */
+  function showField(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.style.display = 'block';
+    requestAnimationFrame(() => { el.classList.add('visible'); });
+  }
+
+  function hideField(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.remove('visible');
+    setTimeout(() => { if (!el.classList.contains('visible')) el.style.display = 'none'; }, 300);
+  }
+
+  /** Marca un botón como activo dentro de su grupo */
+  function setActive(btn) {
+    const siblings = btn.parentElement.querySelectorAll('.toggle-btn');
+    siblings.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  // ======================================
+  // === MÓDULO: Toggle Sí/No ===
+  // ======================================
+  function toggleYesNo(btn, targetId, isNo = false) {
+    setActive(btn);
+    if (isNo) {
+      hideField(targetId);
+    } else {
+      showField(targetId);
+    }
+  }
+
+  // ======================================
+  // === MÓDULO: Objetivo principal (S2) ===
+  // ======================================
+  const objectiveFields = ['cond-leads','cond-servicio','cond-producto','cond-llamadas','cond-agendar','cond-otro-obj'];
+
+  function selectObjective(card) {
+    // Actualizar UI cards
+    document.querySelectorAll('#objective-cards .radio-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+
+    const value = card.dataset.value;
+    document.getElementById('objective-value').value = value;
+
+    // Ocultar todos los condicionales
+    objectiveFields.forEach(id => hideField(id));
+
+    // Mostrar el correspondiente
+    const map = {
+      leads: 'cond-leads', servicio: 'cond-servicio',
+      producto: 'cond-producto', llamadas: 'cond-llamadas',
+      agendar: 'cond-agendar', otro: 'cond-otro-obj'
+    };
+    if (map[value]) showField(map[value]);
+
+    // Limpiar error
+    document.getElementById('err-objective').classList.remove('show');
+  }
+
+  // ======================================
+  // === MÓDULO: CTA (S3) ===
+  // ======================================
+  function handleCTAChange() {
+    const val = document.getElementById('cta-select').value;
+    val === 'otro' ? showField('cond-cta-otro') : hideField('cond-cta-otro');
+  }
+
+  // ======================================
+  // === MÓDULO: Dominio (S4) ===
+  // ======================================
+  function selectDomain(val) {
+    document.getElementById('domain-value').value = val;
+    ['si','no'].forEach(v => document.getElementById('domain-' + v).classList.remove('active'));
+    document.getElementById('domain-' + val).classList.add('active');
+    hideField('cond-domain-si');
+    hideField('cond-domain-no');
+    showField(val === 'si' ? 'cond-domain-si' : 'cond-domain-no');
+  }
+
+  // ======================================
+  // === MÓDULO: Idioma (S4) ===
+  // ======================================
+  const selectedLangs = new Set();
+
+  function toggleLang(btn, lang) {
+    if (selectedLangs.has(lang)) {
+      selectedLangs.delete(lang);
+      btn.classList.remove('active');
+    } else {
+      selectedLangs.add(lang);
+      btn.classList.add('active');
+    }
+    document.getElementById('lang-value').value = [...selectedLangs].join(',');
+  }
+
+  // ======================================
+  // === MÓDULO: Redes sociales dinámicas ===
+  // ======================================
+  function addSocialField() {
+    const container = document.getElementById('social-fields');
+    const count = container.querySelectorAll('input').length;
+    if (count >= 8) return;
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'flex gap-2 items-center';
+
+    const input = document.createElement('input');
+    input.type = 'url';
+    input.name = 'social[]';
+    input.className = 'form-input';
+    input.placeholder = 'https://...';
+
+    const removeBtn = document.createElement('button');
+    removeBtn.type = 'button';
+    removeBtn.textContent = '✕';
+    removeBtn.className = 'text-[var(--color-muted)] hover:text-[var(--color-pink)] text-sm px-2 flex-shrink-0 transition-colors';
+    removeBtn.onclick = () => wrapper.remove();
+
+    wrapper.appendChild(input);
+    wrapper.appendChild(removeBtn);
+    container.appendChild(wrapper);
+  }
+
+  // ======================================
+  // === MÓDULO: Confirmación ===
+  // ======================================
+  function toggleConfirm() {
+    const checkbox = document.getElementById('confirm-check');
+    const input = document.getElementById('confirm-input');
+    const submitBtn = document.getElementById('submit-btn');
+
+    checkbox.classList.toggle('checked');
+    const isChecked = checkbox.classList.contains('checked');
+    input.checked = isChecked;
+    submitBtn.disabled = !isChecked;
+
+    document.getElementById('err-confirm').classList.remove('show');
+  }
+
+  // ======================================
+  // === MÓDULO: File input label ===
+  // ======================================
+  function updateFileLabel(input, labelId) {
+    const label = document.getElementById(labelId);
+    if (input.files && input.files[0]) {
+      label.innerHTML = `<div class="text-2xl mb-1">✅</div>${input.files[0].name}`;
+    }
+  }
+
+  // ======================================
+  // === MÓDULO: Validación ===
+  // ======================================
+  function isVisible(el) {
+    return el && el.offsetParent !== null && !el.closest('.conditional-field:not(.visible)');
+  }
+
+  function showError(fieldId, errorId) {
+    const field = document.getElementById(fieldId);
+    const error = document.getElementById(errorId);
+    if (field) field.classList.add('error');
+    if (error) error.classList.add('show');
+    return field;
+  }
+
+  function clearError(fieldId, errorId) {
+    const field = document.getElementById(fieldId);
+    const error = document.getElementById(errorId);
+    if (field) field.classList.remove('error');
+    if (error) error.classList.remove('show');
+  }
+
+  function validateForm() {
+    let firstError = null;
+    let valid = true;
+
+    // S1
+    const s1Fields = [
+      ['biz-name','err-biz-name'],
+      ['contact-name','err-contact-name'],
+      ['contact-email','err-contact-email'],
+      ['contact-phone','err-contact-phone'],
+    ];
+    s1Fields.forEach(([fid, eid]) => {
+      clearError(fid, eid);
+      const el = document.getElementById(fid);
+      if (!el.value.trim()) {
+        const f = showError(fid, eid);
+        if (!firstError) firstError = f;
+        valid = false;
+      }
+    });
+
+    // S2 objetivo
+    const objVal = document.getElementById('objective-value').value;
+    if (!objVal) {
+      document.getElementById('err-objective').classList.add('show');
+      if (!firstError) firstError = document.getElementById('objective-cards');
+      valid = false;
+    }
+
+    // S3 CTA
+    clearError('cta-select','err-cta');
+    const ctaVal = document.getElementById('cta-select').value;
+    if (!ctaVal) {
+      showError('cta-select','err-cta');
+      if (!firstError) firstError = document.getElementById('cta-select');
+      valid = false;
+    }
+
+    // S6 propuesta
+    ['value-prop','differentiator'].forEach(fid => {
+      const eid = 'err-' + fid;
+      clearError(fid, eid);
+      const el = document.getElementById(fid);
+      if (!el.value.trim()) {
+        showError(fid, eid);
+        if (!firstError) firstError = el;
+        valid = false;
+      }
+    });
+
+    // S7 tono
+    clearError('tone-select','err-tone');
+    if (!document.getElementById('tone-select').value) {
+      showError('tone-select','err-tone');
+      if (!firstError) firstError = document.getElementById('tone-select');
+      valid = false;
+    }
+
+    // S8 estilo
+    clearError('style-select','err-style');
+    if (!document.getElementById('style-select').value) {
+      showError('style-select','err-style');
+      if (!firstError) firstError = document.getElementById('style-select');
+      valid = false;
+    }
+
+    // Confirmación
+    if (!document.getElementById('confirm-input').checked) {
+      document.getElementById('err-confirm').classList.add('show');
+      if (!firstError) firstError = document.getElementById('confirm-check');
+      valid = false;
+    }
+
+    if (firstError) {
+      firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    return valid;
+  }
+
+  // ======================================
+  // === MÓDULO: Post-envío ===
+  // ======================================
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    // Animación de éxito
+    const form = document.getElementById('activation-form');
+    const success = document.getElementById('success-message');
+
+    form.style.opacity = '0';
+    form.style.transform = 'translateY(20px)';
+    form.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+
+    setTimeout(() => {
+      form.style.display = 'none';
+      success.style.display = 'block';
+      success.scrollIntoView({ behavior: 'smooth' });
+    }, 400);
+  }
+
+  // ======================================
+  // === INICIALIZACIÓN ===
+  // ======================================
+  document.addEventListener('DOMContentLoaded', () => {
+    // Bind submit
+    document.getElementById('activation-form').addEventListener('submit', handleSubmit);
+
+    // Ocultar todos los campos condicionales inicialmente
+    document.querySelectorAll('.conditional-field').forEach(el => {
+      el.style.display = 'none';
+    });
+
+    // Animate sections on load
+    const cards = document.querySelectorAll('.section-card');
+    cards.forEach((card, i) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = `opacity 0.5s ease ${i * 0.07}s, transform 0.5s ease ${i * 0.07}s`;
+      setTimeout(() => {
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }, 100 + i * 70);
+    });
+  });
+  </script>
+</body>
+</html>
