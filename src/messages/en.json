@@ -11,7 +11,9 @@
     "titlePart1": "Your landing page ready in",
     "titlePart2": "48 hours",
     "description": "We create disruptive digital experiences that scale your business to a higher level. Speed, cutting-edge design, and state-of-the-art technology.",
-    "cta": "Start Project"
+    "cta": "Start Project",
+    "deliveryLabel": "Delivery in",
+    "deliveryTime": "48 Hours"
   },
   "About": {
     "badge": "About Vitality Global",
@@ -37,6 +39,9 @@
     "badge": "Our Portfolio",
     "titlePrefix": "Projects that make a ",
     "titleSuffix": "Difference",
+    "viewSite": "View site",
+    "requestDemo": "Request demo",
+    "goToProject": "Go to project",
     "projects": {
       "flowia": {
         "description": "Creating hyper-realistic AI-powered avatars for cutting-edge brands."
@@ -94,6 +99,10 @@
     },
     "disclaimer": "*This offer does not include maintenance and infrastructure charges."
   },
+  "WhatsApp": {
+    "tooltip": "Let's chat on WhatsApp!",
+    "message": "Hi Vitality Global! I'm interested in having a landing page for my business. Could we schedule an interview?"
+  },
   "Footer": {
     "description": "We transform ideas into landings that capture customers. Professional delivery in 48 hours with everything you need to start selling.",
     "rights": "All rights reserved.",
@@ -110,6 +119,7 @@
     "titlePrefix": "Ready for your ",
     "titleSuffix": "Landing Page?",
     "description": "Start transforming your business today.",
+    "cardLabel": "Landing page",
     "emailLabel": "Email",
     "phoneLabel": "Phone",
     "whatsappLabel": "WhatsApp",

@@ -11,7 +11,9 @@
     "titlePart1": "Tu landing page lista en",
     "titlePart2": "48 hs",
     "description": "Creamos experiencias digitales disruptivas que escalan tu negocio a un nivel superior. Velocidad, diseño de vanguardia y tecnología punta.",
-    "cta": "Empezar Proyecto"
+    "cta": "Empezar Proyecto",
+    "deliveryLabel": "Entrega en",
+    "deliveryTime": "48 Horas"
   },
   "About": {
     "badge": "Sobre Vitality Global",
@@ -37,6 +39,9 @@
     "badge": "Nuestro Portafolio",
     "titlePrefix": "Proyectos que marcan la ",
     "titleSuffix": "Diferencia",
+    "viewSite": "Ir al sitio",
+    "requestDemo": "Solicitar demo",
+    "goToProject": "Go to project",
     "projects": {
       "flowia": {
         "description": "Creación de avatares hiperrealistas impulsados por IA para marcas de vanguardia."
@@ -93,6 +98,10 @@
       "contact_form": "Formulario de contacto"
     },
     "disclaimer": "*Esta oferta no incluye cargos por mantenimiento e infraestructura."
+  },
+  "WhatsApp": {
+    "tooltip": "¡Hablemos por WhatsApp!",
+    "message": "¡Hola Vitality Global! Estoy interesada/o en tener una landing page para mi negocio ¿Podriamos contactar una entrevista?"
   },
   "Footer": {
     "description": "Transformamos ideas en landings que capturan clientes. Entrega profesional en 48 horas con todo lo que necesitas para empezar a vender.",

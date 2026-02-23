@@ -83,8 +83,8 @@ const HeroSection = () => {
                                     <BoltIcon className="h-6 w-6 text-green-500" />
                                 </div>
                                 <div>
-                                    <p className="text-xs text-gray-400">Entrega en</p>
-                                    <p className="text-sm font-bold text-white">48 Horas</p>
+                                    <p className="text-xs text-gray-400">{t('deliveryLabel')}</p>
+                                    <p className="text-sm font-bold text-white">{t('deliveryTime')}</p>
                                 </div>
                             </div>
                         </motion.div>

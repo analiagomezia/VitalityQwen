@@ -344,6 +344,44 @@
     }
     .orb-1 { width:400px;height:400px; background:var(--color-purple); top:-100px; left:-100px; }
     .orb-2 { width:300px;height:300px; background:var(--color-pink); bottom:10%; right:-50px; }
+
+    /* ── Progress Bar ── */
+    .progress-bar-wrapper {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background-color: rgba(13,27,42,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--color-border);
+      padding: 0.75rem 1rem;
+      transition: box-shadow 0.3s ease;
+    }
+    .progress-bar-wrapper.scrolled {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .progress-track {
+      width: 100%;
+      height: 6px;
+      background-color: var(--color-surface-2);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--color-grad-start), var(--color-grad-end));
+      transition: width 0.4s ease;
+      box-shadow: 0 0 10px rgba(108,99,255,0.5);
+    }
+    .autosave-indicator {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      font-size: 0.7rem;
+      color: var(--color-cyan);
+    }
+    .autosave-indicator.visible {
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
@@ -389,11 +427,30 @@
         FORMULARIO DE ACTIVACIÓN DEL PROYECTO
       </h1>
       <p class="text-sm text-[var(--color-muted)] max-w-xl mx-auto mb-5 leading-relaxed">
-        A continuación, le solicitamos completar el siguiente formulario, que nos permitirá recopilar la información necesaria para diseñar y desarrollar su landing page profesional de manera estratégica, alineada con su objetivo comercial. El plazo de entrega de 48 horas comienza una vez confirmado el pago y recibido este formulario completo con toda la información solicitada.
+        A continuación, le solicitamos completar el siguiente formulario, que nos permitirá recopilar la información necesaria para diseñar y desarrollar su landing page profesional alineada con su objetivo comercial. 
+        El plazo de entrega de 48 horas comienza una vez recibido este formulario completo con toda la información solicitada.
       </p>
-      <span class="badge">⏱ Entrega en 48hs hábiles tras confirmación</span>
+      <span class="badge">⏱ Entrega en 48hs hábiles </span>
     </div>
   </header>
+
+  <!-- ══════════════════════════════════════
+       PROGRESS BAR
+  ══════════════════════════════════════ -->
+  <div class="progress-bar-wrapper" id="progress-wrapper">
+    <div class="max-w-3xl mx-auto">
+      <div class="flex items-center justify-between mb-1.5">
+        <span class="text-xs font-display text-[var(--color-cyan)]" id="progress-label">SECCIÓN 01 / 10</span>
+        <div class="flex items-center gap-3">
+          <span class="autosave-indicator" id="autosave-indicator">✓ Guardado</span>
+          <span class="text-xs text-[var(--color-muted)]" id="progress-pct">0%</span>
+        </div>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-bar" style="width: 0%"></div>
+      </div>
+    </div>
+  </div>
 
   <!-- ══════════════════════════════════════
        MAIN CONTENT
@@ -632,9 +689,9 @@
         </div>
       </div>
 
-      <!-- ══ SECCIÓN 6: Propuesta ══ -->
+      <!-- ══ SECCIÓN 5: Propuesta ══ -->
       <div class="section-card">
-        <div class="section-number mb-1">SECCIÓN 06</div>
+        <div class="section-number mb-1">SECCIÓN 05</div>
         <h2 class="font-display text-base font-semibold brand-gradient-text">Propuesta Principal y Diferenciación</h2>
         <div class="section-divider"></div>
 
@@ -674,9 +731,9 @@
         </div>
       </div>
 
-      <!-- ══ SECCIÓN 7: Tono ══ -->
+      <!-- ══ SECCIÓN 6: Tono ══ -->
       <div class="section-card">
-        <div class="section-number mb-1">SECCIÓN 07</div>
+        <div class="section-number mb-1">SECCIÓN 06</div>
         <h2 class="font-display text-base font-semibold brand-gradient-text">Tono de Comunicación</h2>
         <div class="section-divider"></div>
         <label class="field-label" for="tone-select">Seleccione el tono <span class="required-mark">*</span></label>
@@ -691,9 +748,9 @@
         <div class="field-error" id="err-tone">Seleccione un tono.</div>
       </div>
 
-      <!-- ══ SECCIÓN 8: Estilo visual ══ -->
+      <!-- ══ SECCIÓN 7: Estilo visual ══ -->
       <div class="section-card">
-        <div class="section-number mb-1">SECCIÓN 08</div>
+        <div class="section-number mb-1">SECCIÓN 07</div>
         <h2 class="font-display text-base font-semibold brand-gradient-text">Estilo Visual</h2>
         <div class="section-divider"></div>
         <div class="space-y-4">
@@ -715,9 +772,9 @@
         </div>
       </div>
 
-      <!-- ══ SECCIÓN 9: Logo e identidad ══ -->
+      <!-- ══ SECCIÓN 8: Logo e identidad ══ -->
       <div class="section-card">
-        <div class="section-number mb-1">SECCIÓN 09</div>
+        <div class="section-number mb-1">SECCIÓN 08</div>
         <h2 class="font-display text-base font-semibold brand-gradient-text">Logo e Identidad Visual</h2>
         <div class="section-divider"></div>
 
@@ -760,9 +817,9 @@
         </div>
       </div>
 
-      <!-- ══ SECCIÓN 10: Datos técnicos ══ -->
+      <!-- ══ SECCIÓN 9: Datos técnicos ══ -->
       <div class="section-card">
-        <div class="section-number mb-1">SECCIÓN 10</div>
+        <div class="section-number mb-1">SECCIÓN 09</div>
         <h2 class="font-display text-base font-semibold brand-gradient-text">Datos Técnicos e Integraciones</h2>
         <div class="section-divider"></div>
 
@@ -833,9 +890,9 @@
         </div>
       </div>
 
-      <!-- ══ SECCIÓN 11: Imágenes y Videos ══ -->
+      <!-- ══ SECCIÓN 10: Imágenes y Videos ══ -->
       <div class="section-card">
-        <div class="section-number mb-1">SECCIÓN 11</div>
+        <div class="section-number mb-1">SECCIÓN 10</div>
         <h2 class="font-display text-base font-semibold brand-gradient-text">Imágenes y Videos</h2>
         <div class="section-divider"></div>
 
@@ -1115,7 +1172,7 @@
       valid = false;
     }
 
-    // S6 propuesta
+    // S5 propuesta
     ['value-prop','differentiator'].forEach(fid => {
       const eid = 'err-' + fid;
       clearError(fid, eid);
@@ -1127,7 +1184,7 @@
       }
     });
 
-    // S7 tono
+    // S6 tono
     clearError('tone-select','err-tone');
     if (!document.getElementById('tone-select').value) {
       showError('tone-select','err-tone');
@@ -1135,7 +1192,7 @@
       valid = false;
     }
 
-    // S8 estilo
+    // S7 estilo
     clearError('style-select','err-style');
     if (!document.getElementById('style-select').value) {
       showError('style-select','err-style');
@@ -1164,6 +1221,12 @@
     e.preventDefault();
     if (!validateForm()) return;
 
+    // Limpiar autosave
+    clearAutoSave();
+
+    // Ocultar barra de progreso
+    document.getElementById('progress-wrapper').style.display = 'none';
+
     // Animación de éxito
     const form = document.getElementById('activation-form');
     const success = document.getElementById('success-message');
@@ -1180,11 +1243,200 @@
   }
 
   // ======================================
+  // === MÓDULO: Indicador de progreso ===
+  // ======================================
+  const TOTAL_SECTIONS = 10;
+
+  function updateProgress() {
+    const cards = document.querySelectorAll('#activation-form > .section-card');
+    const scrollY = window.scrollY || window.pageYOffset;
+    const windowH = window.innerHeight;
+    let currentSection = 1;
+
+    cards.forEach((card, i) => {
+      const rect = card.getBoundingClientRect();
+      // La sección está "activa" si su parte superior está por encima del centro de la pantalla
+      if (rect.top < windowH * 0.5) {
+        currentSection = i + 1;
+      }
+    });
+
+    // Calcular porcentaje basado en scroll total
+    const docH = document.documentElement.scrollHeight - windowH;
+    const pct = docH > 0 ? Math.min(Math.round((scrollY / docH) * 100), 100) : 0;
+
+    const sectionNum = String(currentSection).padStart(2, '0');
+    document.getElementById('progress-label').textContent = `SECCIÓN ${sectionNum} / ${TOTAL_SECTIONS}`;
+    document.getElementById('progress-pct').textContent = `${pct}%`;
+    document.getElementById('progress-bar').style.width = `${pct}%`;
+
+    // Shadow en la barra cuando hay scroll
+    const wrapper = document.getElementById('progress-wrapper');
+    if (scrollY > 50) {
+      wrapper.classList.add('scrolled');
+    } else {
+      wrapper.classList.remove('scrolled');
+    }
+  }
+
+  // ======================================
+  // === MÓDULO: Auto-guardado ===
+  // ======================================
+  const STORAGE_KEY = 'vitality-onboarding-data';
+  let saveTimeout = null;
+
+  function autoSave() {
+    clearTimeout(saveTimeout);
+    saveTimeout = setTimeout(() => {
+      try {
+        const form = document.getElementById('activation-form');
+        const data = {};
+
+        // Guardar todos los inputs de texto, email, tel, url
+        form.querySelectorAll('input[name]:not([type="file"]):not([type="checkbox"]):not([type="hidden"]), textarea[name], select[name]').forEach(el => {
+          if (el.name) data[el.name] = el.value;
+        });
+
+        // Guardar hidden inputs
+        data['_objective'] = document.getElementById('objective-value').value;
+        data['_domain'] = document.getElementById('domain-value').value;
+        data['_lang'] = document.getElementById('lang-value').value;
+        data['_confirm'] = document.getElementById('confirm-input').checked;
+
+        // Guardar redes sociales
+        const socials = [];
+        form.querySelectorAll('input[name="social[]"]').forEach(el => {
+          if (el.value.trim()) socials.push(el.value);
+        });
+        data['_socials'] = socials;
+
+        // Guardar toggle states (botones activos)
+        const toggleStates = [];
+        form.querySelectorAll('.toggle-group').forEach((group, i) => {
+          const activeBtn = group.querySelector('.toggle-btn.active');
+          if (activeBtn) {
+            toggleStates.push({ index: i, text: activeBtn.textContent.trim() });
+          }
+        });
+        data['_toggles'] = toggleStates;
+
+        data['_timestamp'] = new Date().toISOString();
+
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+
+        // Mostrar indicador de guardado
+        showAutosaveIndicator();
+      } catch (e) {
+        console.warn('Auto-save failed:', e);
+      }
+    }, 500); // Debounce de 500ms
+  }
+
+  function showAutosaveIndicator() {
+    const indicator = document.getElementById('autosave-indicator');
+    indicator.classList.add('visible');
+    setTimeout(() => indicator.classList.remove('visible'), 2000);
+  }
+
+  function autoRestore() {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (!saved) return;
+
+      const data = JSON.parse(saved);
+
+      // Restaurar inputs de texto, email, tel, url, textareas, selects
+      const form = document.getElementById('activation-form');
+      form.querySelectorAll('input[name]:not([type="file"]):not([type="checkbox"]):not([type="hidden"]), textarea[name], select[name]').forEach(el => {
+        if (el.name && data[el.name] !== undefined && data[el.name] !== '') {
+          el.value = data[el.name];
+        }
+      });
+
+      // Restaurar objetivo
+      if (data['_objective']) {
+        const objCard = document.querySelector(`#objective-cards .radio-card[data-value="${data['_objective']}"]`);
+        if (objCard) selectObjective(objCard);
+      }
+
+      // Restaurar dominio
+      if (data['_domain']) {
+        selectDomain(data['_domain']);
+      }
+
+      // Restaurar idioma
+      if (data['_lang']) {
+        const langs = data['_lang'].split(',');
+        langs.forEach(lang => {
+          const btn = document.querySelector(`#lang-group .toggle-btn`);
+          document.querySelectorAll('#lang-group .toggle-btn').forEach(b => {
+            // Buscar el botón correspondiente al idioma
+            if ((lang === 'en' && b.textContent.includes('Inglés')) ||
+                (lang === 'es' && b.textContent.includes('Español')) ||
+                (lang === 'both' && b.textContent.includes('Ambos'))) {
+              toggleLang(b, lang);
+            }
+          });
+        });
+      }
+
+      // Restaurar CTA condicional
+      if (data['cta'] === 'otro') {
+        showField('cond-cta-otro');
+      }
+
+      // Restaurar redes sociales adicionales
+      if (data['_socials'] && data['_socials'].length > 1) {
+        for (let i = 1; i < data['_socials'].length; i++) {
+          addSocialField();
+        }
+        const socialInputs = form.querySelectorAll('input[name="social[]"]');
+        data['_socials'].forEach((val, i) => {
+          if (socialInputs[i]) socialInputs[i].value = val;
+        });
+      }
+
+      // Restaurar confirmación
+      if (data['_confirm']) {
+        toggleConfirm();
+      }
+
+      // Restaurar toggles (Sí/No)
+      if (data['_toggles']) {
+        const groups = form.querySelectorAll('.toggle-group');
+        data['_toggles'].forEach(({ index, text }) => {
+          if (groups[index]) {
+            groups[index].querySelectorAll('.toggle-btn').forEach(btn => {
+              if (btn.textContent.trim() === text) {
+                btn.click();
+              }
+            });
+          }
+        });
+      }
+
+    } catch (e) {
+      console.warn('Auto-restore failed:', e);
+    }
+  }
+
+  function clearAutoSave() {
+    localStorage.removeItem(STORAGE_KEY);
+  }
+
+  // ======================================
   // === INICIALIZACIÓN ===
   // ======================================
   document.addEventListener('DOMContentLoaded', () => {
     // Bind submit
-    document.getElementById('activation-form').addEventListener('submit', handleSubmit);
+    const form = document.getElementById('activation-form');
+    form.addEventListener('submit', (e) => {
+      handleSubmit(e);
+      // Limpiar autosave al enviar exitosamente
+      if (document.getElementById('success-message').style.display === 'block') {
+        clearAutoSave();
+      }
+    });
 
     // Ocultar todos los campos condicionales inicialmente
     document.querySelectorAll('.conditional-field').forEach(el => {
@@ -1201,6 +1453,24 @@
         card.style.opacity = '1';
         card.style.transform = 'translateY(0)';
       }, 100 + i * 70);
+    });
+
+    // Inicializar progreso
+    updateProgress();
+    window.addEventListener('scroll', updateProgress, { passive: true });
+
+    // Restaurar datos guardados
+    setTimeout(() => autoRestore(), 300);
+
+    // Bind autosave a cambios del formulario
+    form.addEventListener('input', autoSave);
+    form.addEventListener('change', autoSave);
+
+    // También guardar en clicks de toggle/radio (ya que no disparan input/change en algunos casos)
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('.toggle-btn') || e.target.closest('.radio-card') || e.target.closest('.custom-checkbox-wrapper')) {
+        setTimeout(autoSave, 100);
+      }
     });
   });
   </script>

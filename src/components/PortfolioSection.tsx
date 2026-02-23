@@ -54,7 +54,7 @@ const PortfolioSection = () => {
             category: "healthtech",
             image: "/images/portfolio/odontapp.jpg",
             gradient: "from-teal-500 to-emerald-600",
-            ctaText: "Solicitar demo",
+            ctaKey: "requestDemo",
         },
         {
             id: 7,
@@ -202,7 +202,7 @@ const PortfolioSection = () => {
                                                         whileTap={{ scale: 0.95 }}
                                                         className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-1.5 md:py-3 rounded-xl text-sm shadow-lg shadow-indigo-600/20 transition-all flex items-center justify-center space-x-2"
                                                     >
-                                                        <span>{(project as any).ctaText || "Ir al sitio"}</span>
+                                                        <span>{t(`${(project as any).ctaKey || 'viewSite'}`)}</span>
                                                         <ChevronRightIcon className="h-4 w-4" />
                                                     </motion.a>
                                                 ) : (
@@ -211,7 +211,7 @@ const PortfolioSection = () => {
                                                         whileTap={{ scale: 0.95 }}
                                                         className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-1.5 md:py-3 rounded-xl text-sm shadow-lg shadow-indigo-600/20 transition-all flex items-center justify-center space-x-2"
                                                     >
-                                                        <span>{(project as any).ctaText || "Ir al sitio"}</span>
+                                                        <span>{t(`${(project as any).ctaKey || 'viewSite'}`)}</span>
                                                         <ChevronRightIcon className="h-4 w-4" />
                                                     </motion.button>
                                                 )}

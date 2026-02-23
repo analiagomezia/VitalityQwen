@@ -1,9 +1,12 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 
 const FloatingWhatsApp = () => {
-    const whatsappUrl = "https://wa.me/5492615450857?text=%C2%A1Hola%20Vitality%20Global!%20Estoy%20interesada/o%20en%20tener%20una%20landing%20page%20para%20mi%20negocio%20%C2%BFPodriamos%20contactar%20una%20entrevista?";
+    const t = useTranslations('WhatsApp');
+    const whatsappMessage = encodeURIComponent(t('message'));
+    const whatsappUrl = `https://wa.me/5492615450857?text=${whatsappMessage}`;
 
     return (
         <motion.a
@@ -27,7 +30,7 @@ const FloatingWhatsApp = () => {
 
             {/* Tooltip */}
             <span className="absolute right-full mr-4 bg-gray-900 text-white px-4 py-2 rounded-xl text-xs md:text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none border border-white/10 shadow-xl">
-                ¡Hablemos por WhatsApp!
+                {t('tooltip')}
             </span>
 
             {/* Ping animation effect */}
