@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Pago Confirmado! | Vitality Global</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --color-bg: #0D1B2A;
+            --color-surface: #151F30;
+            --color-surface-2: #1C2940;
+            --color-purple: #7B2FBE;
+            --color-pink: #E91E8C;
+            --color-cyan: #00D4FF;
+            --color-grad-start: #6C63FF;
+            --color-grad-end: #FF3CAC;
+            --color-text: #F0F4FF;
+            --color-muted: #8899BB;
+            --color-border: #2A3A55;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: 'DM Sans', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        .font-display { font-family: 'Orbitron', sans-serif; }
+
+        .brand-gradient {
+            background: linear-gradient(135deg, var(--color-grad-start) 0%, var(--color-grad-end) 100%);
+        }
+
+        .brand-gradient-text {
+            background: linear-gradient(135deg, var(--color-grad-start) 0%, var(--color-grad-end) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .glass-card {
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            box-shadow: 0 0 60px rgba(108, 99, 255, 0.15);
+        }
+
+        .ambient-orb {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.12;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes checkmark {
+            0% { transform: scale(0) rotate(-45deg); opacity: 0; }
+            50% { transform: scale(1.2) rotate(0deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse-ring {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(108, 99, 255, 0.4); }
+            50% { box-shadow: 0 0 0 20px rgba(108, 99, 255, 0); }
+        }
+
+        .animate-check { animation: checkmark 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both; }
+        .animate-fade-1 { animation: fadeUp 0.6s ease 0.6s both; }
+        .animate-fade-2 { animation: fadeUp 0.6s ease 0.8s both; }
+        .animate-fade-3 { animation: fadeUp 0.6s ease 1.0s both; }
+        .animate-fade-4 { animation: fadeUp 0.6s ease 1.2s both; }
+        .animate-fade-5 { animation: fadeUp 0.6s ease 1.4s both; }
+        .pulse-ring { animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
+        .step.active-step .step-circle {
+            box-shadow: 0 0 0 4px rgba(108, 99, 255, 0.3);
+        }
+
+        .email-input {
+            background-color: var(--color-surface-2);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            color: var(--color-text);
+            transition: all 0.3s ease;
+        }
+        .email-input:focus {
+            outline: none;
+            border-color: var(--color-grad-start);
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
+        }
+        .email-input::placeholder {
+            color: #556688;
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 1000;
+            transform: translateX(120%);
+            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .toast.show { transform: translateX(0); }
+        .toast-success {
+            background-color: #0D3320;
+            border: 1px solid #14532d;
+            color: #4ade80;
+        }
+        .toast-error {
+            background-color: #3D0D1B;
+            border: 1px solid #7f1d1d;
+            color: #f87171;
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .divider-text {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--color-muted);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .divider-text::before,
+        .divider-text::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--color-border);
+        }
+    </style>
+</head>
+<body>
+    <!-- Ambient orbs -->
+    <div class="ambient-orb" style="background:var(--color-purple);top:-100px;right:-100px;"></div>
+    <div class="ambient-orb" style="background:var(--color-pink);bottom:-100px;left:-100px;"></div>
+
+    <!-- Toast notification -->
+    <div id="toast" class="toast"></div>
+
+    <div class="relative z-10 max-w-lg mx-auto px-4 w-full">
+        <div class="glass-card p-8 md:p-10">
+
+            <!-- Checkmark -->
+            <div class="animate-check mx-auto mb-6 w-20 h-20 rounded-full brand-gradient flex items-center justify-center pulse-ring">
+                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+
+            <!-- Title -->
+            <h1 class="animate-fade-1 text-2xl md:text-3xl font-display font-bold brand-gradient-text mb-3 text-center">
+                ¡Pago Confirmado!
+            </h1>
+
+            <!-- Description -->
+            <p class="animate-fade-2 text-[var(--color-muted)] text-center mb-2">
+                Tu pago ha sido procesado exitosamente.
+            </p>
+            <p class="animate-fade-2 text-[var(--color-muted)] text-sm text-center mb-8">
+                El siguiente paso es completar el formulario de activación para que comencemos tu proyecto.
+            </p>
+
+            <!-- Steps -->
+            <div class="animate-fade-3 flex items-center justify-center gap-2 mb-8">
+                <!-- Step 1: Done -->
+                <div class="step text-center">
+                    <div class="step-circle w-10 h-10 rounded-full brand-gradient flex items-center justify-center mx-auto mb-1">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <span class="text-[10px] text-[var(--color-cyan)] uppercase tracking-wider font-bold">Pago</span>
+                </div>
+                <div class="w-8 h-0.5 brand-gradient rounded mt-[-14px]"></div>
+                <!-- Step 2: Current -->
+                <div class="step active-step text-center">
+                    <div class="step-circle w-10 h-10 rounded-full brand-gradient flex items-center justify-center mx-auto mb-1">
+                        <span class="text-white font-bold text-sm">2</span>
+                    </div>
+                    <span class="text-[10px] text-[var(--color-cyan)] uppercase tracking-wider font-bold">Onboarding</span>
+                </div>
+                <div class="w-8 h-0.5 bg-[var(--color-border)] rounded mt-[-14px]"></div>
+                <!-- Step 3: Pending -->
+                <div class="step text-center">
+                    <div class="step-circle w-10 h-10 rounded-full bg-[var(--color-surface-2)] border border-[var(--color-border)] flex items-center justify-center mx-auto mb-1">
+                        <span class="text-[var(--color-muted)] font-bold text-sm">3</span>
+                    </div>
+                    <span class="text-[10px] text-[var(--color-muted)] uppercase tracking-wider">Entrega</span>
+                </div>
+            </div>
+
+            <!-- CTA: Ir al Onboarding ahora -->
+            <a href="/onboarding.html" id="btn-onboarding"
+               class="animate-fade-4 flex items-center justify-center gap-3 w-full brand-gradient text-white font-display font-bold text-sm uppercase tracking-wider px-6 py-4 rounded-xl hover:opacity-90 transition-opacity text-center no-underline">
+                <span>Completar Onboarding Ahora</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                </svg>
+            </a>
+
+            <!-- Divider -->
+            <div class="animate-fade-5 divider-text my-6">o recibilo por email</div>
+
+            <!-- Email form -->
+            <form id="email-form" class="animate-fade-5 space-y-3">
+                <div>
+                    <label for="client-name" class="block text-xs text-[var(--color-muted)] uppercase tracking-wider mb-1.5 ml-1">
+                        Nombre (opcional)
+                    </label>
+                    <input type="text" id="client-name" name="name" placeholder="Tu nombre"
+                           class="email-input w-full px-4 py-3 text-sm" />
+                </div>
+                <div>
+                    <label for="client-email" class="block text-xs text-[var(--color-muted)] uppercase tracking-wider mb-1.5 ml-1">
+                        Email <span class="text-[var(--color-pink)]">*</span>
+                    </label>
+                    <input type="email" id="client-email" name="email" placeholder="tu@email.com" required
+                           class="email-input w-full px-4 py-3 text-sm" />
+                    <p id="email-error" class="text-[var(--color-pink)] text-xs mt-1 ml-1 hidden">
+                        Ingresá un email válido
+                    </p>
+                </div>
+                <button type="submit" id="btn-send"
+                        class="w-full flex items-center justify-center gap-2 bg-[var(--color-surface-2)] border border-[var(--color-border)] text-[var(--color-text)] font-display font-bold text-sm uppercase tracking-wider px-6 py-4 rounded-xl hover:border-[var(--color-grad-start)] hover:bg-[var(--color-surface)] transition-all cursor-pointer">
+                    <svg class="w-5 h-5 text-[var(--color-cyan)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span id="btn-send-text">Enviar link por email</span>
+                    <div id="btn-send-spinner" class="spinner hidden"></div>
+                </button>
+            </form>
+
+            <!-- Success state (hidden initially) -->
+            <div id="email-sent-msg" class="hidden mt-4 p-4 rounded-xl bg-[#0D3320] border border-[#14532d] text-center">
+                <p class="text-[#4ade80] text-sm font-medium">
+                    ✅ ¡Email enviado! Revisá tu bandeja de entrada
+                </p>
+                <p class="text-[#4ade80]/60 text-xs mt-1">
+                    Si no lo ves, revisá spam o correo no deseado
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <p class="text-center text-xs text-[var(--color-muted)] mt-6 opacity-60">
+            ¿Dudas? Escribinos por
+            <a href="https://wa.me/5492615450857" target="_blank" rel="noopener noreferrer" class="text-[var(--color-cyan)] hover:underline">WhatsApp</a>
+            ·
+            <a href="/faq.html" class="text-[var(--color-cyan)] hover:underline">FAQ</a>
+        </p>
+    </div>
+
+    <script>
+        // ======================================
+        // === Toast notifications ===
+        // ======================================
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast toast-' + type + ' show';
+            setTimeout(function() {
+                toast.classList.remove('show');
+            }, 4000);
+        }
+
+        // ======================================
+        // === Email validation ===
+        // ======================================
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        // ======================================
+        // === Form submission ===
+        // ======================================
+        var form = document.getElementById('email-form');
+        var emailInput = document.getElementById('client-email');
+        var nameInput = document.getElementById('client-name');
+        var emailError = document.getElementById('email-error');
+        var btnSend = document.getElementById('btn-send');
+        var btnText = document.getElementById('btn-send-text');
+        var btnSpinner = document.getElementById('btn-send-spinner');
+        var emailSentMsg = document.getElementById('email-sent-msg');
+
+        // Real-time validation
+        emailInput.addEventListener('input', function() {
+            if (emailInput.value && !isValidEmail(emailInput.value)) {
+                emailError.classList.remove('hidden');
+                emailInput.style.borderColor = 'var(--color-pink)';
+            } else {
+                emailError.classList.add('hidden');
+                emailInput.style.borderColor = 'var(--color-border)';
+            }
+        });
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            var email = emailInput.value.trim();
+            var name = nameInput.value.trim();
+
+            // Validate
+            if (!email || !isValidEmail(email)) {
+                emailError.classList.remove('hidden');
+                emailInput.style.borderColor = 'var(--color-pink)';
+                emailInput.focus();
+                return;
+            }
+
+            // Loading state
+            btnSend.disabled = true;
+            btnText.textContent = 'Enviando...';
+            btnSpinner.classList.remove('hidden');
+            btnSend.style.opacity = '0.6';
+            btnSend.style.cursor = 'not-allowed';
+
+            try {
+                var res = await fetch('/api/send-onboarding-link', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email, name: name }),
+                });
+
+                var data = await res.json();
+
+                if (res.ok && data.success) {
+                    showToast('✅ Email enviado correctamente', 'success');
+                    form.classList.add('hidden');
+                    emailSentMsg.classList.remove('hidden');
+                } else {
+                    throw new Error(data.error || 'Error desconocido');
+                }
+            } catch (err) {
+                console.error('Error:', err);
+                showToast('❌ Error al enviar. Intentá de nuevo.', 'error');
+
+                // Reset button
+                btnSend.disabled = false;
+                btnText.textContent = 'Enviar link por email';
+                btnSpinner.classList.add('hidden');
+                btnSend.style.opacity = '1';
+                btnSend.style.cursor = 'pointer';
+            }
+        });
+    </script>
+</body>
+</html>

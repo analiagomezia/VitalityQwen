@@ -16,6 +16,22 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/onboarding',
+        destination: '/onboarding.html',
+      },
+      {
+        source: '/faq',
+        destination: '/faq.html',
+      },
+      {
+        source: '/payment-success',
+        destination: '/payment-success.html',
+      },
+    ];
+  },
 };
 
 export default withNextIntl(nextConfig);
