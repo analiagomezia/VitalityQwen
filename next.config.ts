@@ -17,24 +17,28 @@ const nextConfig: NextConfig = {
     ],
   },
   async rewrites() {
-    return [
-      {
-        source: '/onboarding',
-        destination: '/onboarding.html',
-      },
-      {
-        source: '/faq',
-        destination: '/faq.html',
-      },
-      {
-        source: '/payment-success',
-        destination: '/payment-success.html',
-      },
-       {
-        source: '/email-preview',
-        destination: '/email-preview.html',
-      },
-    ];
+    return {
+      beforeFiles: [
+        {
+          source: '/onboarding',
+          destination: '/onboarding.html',
+        },
+        {
+          source: '/faq',
+          destination: '/faq.html',
+        },
+        {
+          source: '/payment-success',
+          destination: '/payment-success.html',
+        },
+        {
+          source: '/email-preview',
+          destination: '/email-preview.html',
+        },
+      ],
+      afterFiles: [],
+      fallback: [],
+    };
   },
 };
 
