@@ -54,6 +54,7 @@ const PortfolioSection = () => {
             category: "healthtech",
             image: "/images/portfolio/odontapp.jpg",
             gradient: "from-teal-500 to-emerald-600",
+            demoUrl: "https://wa.me/5492615450857?text=hola%21%20quisiera%20solicitar%20DEMO%20de%20OdontoAPP",
             ctaKey: "requestDemo",
         },
         {
