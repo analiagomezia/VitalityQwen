@@ -199,6 +199,8 @@ const PortfolioSection = () => {
                                                 {project.demoUrl ? (
                                                     <motion.a
                                                         href={project.demoUrl}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
                                                         whileHover={{ scale: 1.05 }}
                                                         whileTap={{ scale: 0.95 }}
                                                         className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-1.5 md:py-3 rounded-xl text-sm shadow-lg shadow-indigo-600/20 transition-all flex items-center justify-center space-x-2"
