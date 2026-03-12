@@ -2,12 +2,14 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/navigation';
 import { RocketLaunchIcon, CurrencyDollarIcon, BoltIcon } from '@heroicons/react/24/outline';
 
 const HeroSection = () => {
     const t = useTranslations('Hero');
+    const locale = useLocale();
+    const heroImage = locale === 'en' ? '/images/hero-mockup-en.png' : '/images/hero-mockup.png';
 
     return (
         <section id="inicio" className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-gray-900">
@@ -62,7 +64,7 @@ const HeroSection = () => {
                             <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl blur opacity-60 group-hover:opacity-0 transition duration-500"></div>
                             <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 aspect-[16/9]">
                                 <Image
-                                    src="/images/hero-mockup.png"
+                                    src={heroImage}
                                     alt="Vitality Global Mockup"
                                     fill
                                     className="object-cover"
