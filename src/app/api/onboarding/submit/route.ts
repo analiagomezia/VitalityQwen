@@ -114,6 +114,41 @@ function normalizeSubmittedAt(value: string): string {
   return parsed.toISOString();
 }
 
+function buildWebhookBody(serializedPayload: string, logoFile: File | null): FormData {
+  const webhookBody = new FormData();
+  webhookBody.set('submission', serializedPayload);
+
+  if (logoFile) {
+    webhookBody.set('logo', logoFile, sanitizeFileName(logoFile.name));
+  }
+
+  return webhookBody;
+}
+
+function getFallbackWebhookUrl(webhookUrl: string): string | null {
+  if (!webhookUrl.includes('/webhook-test/')) {
+    return null;
+  }
+
+  return webhookUrl.replace('/webhook-test/', '/webhook/');
+}
+
+function getWebhookFailureMessage(status: number): string {
+  if (status === 404) {
+    return 'El webhook de n8n no está registrado. Active el workflow y confirme la URL de producción.';
+  }
+
+  if (status === 401 || status === 403) {
+    return 'n8n rechazó la solicitud por permisos. Revise la autenticación del webhook.';
+  }
+
+  if (status >= 500) {
+    return 'n8n devolvió un error interno. Revise la última ejecución del workflow.';
+  }
+
+  return 'No se pudo enviar la información al sistema de gestión. Intente nuevamente.';
+}
+
 async function verifyTurnstile(token: string, clientIp: string): Promise<boolean> {
   const turnstileSecret = process.env.TURNSTILE_SECRET_KEY;
   if (!turnstileSecret) {
@@ -300,33 +335,45 @@ export async function POST(request: NextRequest) {
 
     const serializedPayload = JSON.stringify(submissionPayload);
 
-    const webhookBody = new FormData();
-    webhookBody.set('submission', serializedPayload);
-    if (logoFile) {
-      webhookBody.set('logo', logoFile, sanitizeFileName(logoFile.name));
-    }
-
-    const webhookResponse = await fetch(webhookUrl, {
+    let usedWebhookUrl = webhookUrl;
+    let webhookResponse = await fetch(usedWebhookUrl, {
       method: 'POST',
       headers: {
         'X-Vitality-Event': 'onboarding.submitted',
         'X-Vitality-Submission-Id': submissionId,
       },
-      body: webhookBody,
+      body: buildWebhookBody(serializedPayload, logoFile),
     });
+
+    if (!webhookResponse.ok) {
+      const fallbackWebhookUrl = getFallbackWebhookUrl(webhookUrl);
+      if (fallbackWebhookUrl) {
+        usedWebhookUrl = fallbackWebhookUrl;
+        webhookResponse = await fetch(usedWebhookUrl, {
+          method: 'POST',
+          headers: {
+            'X-Vitality-Event': 'onboarding.submitted',
+            'X-Vitality-Submission-Id': submissionId,
+          },
+          body: buildWebhookBody(serializedPayload, logoFile),
+        });
+      }
+    }
 
     if (!webhookResponse.ok) {
       const errorPreview = (await webhookResponse.text()).slice(0, 300);
       console.error('[onboarding/submit] n8n webhook request failed', {
         submissionId,
+        webhookUrl: usedWebhookUrl,
         status: webhookResponse.status,
         response: errorPreview,
       });
 
       return NextResponse.json(
         {
-          error: 'No se pudo enviar la información al sistema de gestión. Intente nuevamente.',
+          error: getWebhookFailureMessage(webhookResponse.status),
           submissionId,
+          integrationStatus: webhookResponse.status,
         },
         { status: 502 },
       );
