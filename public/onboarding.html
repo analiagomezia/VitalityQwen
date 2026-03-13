@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Formulario de Activación – Vitality Global</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -939,6 +940,17 @@
         <div class="field-error mt-3" id="err-confirm">Debe aceptar los términos para continuar.</div>
       </div>
 
+      <div class="section-card">
+        <div class="section-number mb-1">SEGURIDAD</div>
+        <h2 class="font-display text-base font-semibold brand-gradient-text">Verificación Anti-Bot</h2>
+        <div class="section-divider"></div>
+        <p class="text-xs text-[var(--color-muted)] mb-4">Complete la verificación para proteger su envío.</p>
+        <div id="turnstile-container" class="min-h-[65px]"></div>
+        <div class="field-error mt-2" id="err-turnstile">Complete la verificación de seguridad.</div>
+      </div>
+
+      <div class="field-error mt-3 mb-4" id="err-submit">No pudimos enviar el formulario. Intente nuevamente.</div>
+
       <!-- ══ BOTÓN ENVIAR ══ -->
       <button type="submit" class="btn-primary w-full text-center" id="submit-btn" disabled>
         Enviar Formulario de Activación →
@@ -956,6 +968,11 @@
        JAVASCRIPT
   ══════════════════════════════════════ -->
   <script>
+    const ONBOARDING_SUBMIT_ENDPOINT = '/api/onboarding/submit';
+    const ONBOARDING_CONFIG_ENDPOINT = '/api/onboarding/config';
+    let turnstileToken = '';
+    let turnstileWidgetId = null;
+
   // ======================================
   // === MÓDULO: Utilidades generales ===
   // ======================================
@@ -1134,6 +1151,79 @@
     if (error) error.classList.remove('show');
   }
 
+  function showTurnstileError(message) {
+    const error = document.getElementById('err-turnstile');
+    error.textContent = message;
+    error.classList.add('show');
+  }
+
+  function clearTurnstileError() {
+    document.getElementById('err-turnstile').classList.remove('show');
+  }
+
+  function showSubmitError(message) {
+    const error = document.getElementById('err-submit');
+    error.textContent = message;
+    error.classList.add('show');
+  }
+
+  function clearSubmitError() {
+    document.getElementById('err-submit').classList.remove('show');
+  }
+
+  async function waitForTurnstile(maxAttempts = 40, delayMs = 150) {
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+      if (window.turnstile && typeof window.turnstile.render === 'function') {
+        return;
+      }
+      await new Promise(resolve => setTimeout(resolve, delayMs));
+    }
+
+    throw new Error('Turnstile script not available');
+  }
+
+  function resetTurnstile() {
+    turnstileToken = '';
+    if (window.turnstile && turnstileWidgetId !== null) {
+      window.turnstile.reset(turnstileWidgetId);
+    }
+  }
+
+  async function initTurnstile() {
+    const container = document.getElementById('turnstile-container');
+    if (!container) return;
+
+    try {
+      const configRes = await fetch(ONBOARDING_CONFIG_ENDPOINT, { cache: 'no-store' });
+      const config = await configRes.json();
+      if (!configRes.ok || !config.siteKey) {
+        throw new Error(config.error || 'No se pudo obtener la configuración de seguridad');
+      }
+
+      await waitForTurnstile();
+
+      turnstileWidgetId = window.turnstile.render('#turnstile-container', {
+        sitekey: config.siteKey,
+        theme: 'dark',
+        callback: (token) => {
+          turnstileToken = token;
+          clearTurnstileError();
+        },
+        'expired-callback': () => {
+          turnstileToken = '';
+          showTurnstileError('La verificación expiró. Vuelva a intentarlo.');
+        },
+        'error-callback': () => {
+          turnstileToken = '';
+          showTurnstileError('No se pudo validar el captcha. Recargue la página.');
+        }
+      });
+    } catch (error) {
+      console.error('Turnstile init failed:', error);
+      showTurnstileError('No se pudo cargar la verificación de seguridad. Recargue la página.');
+    }
+  }
+
   function validateForm() {
     let firstError = null;
     let valid = true;
@@ -1217,29 +1307,71 @@
   // ======================================
   // === MÓDULO: Post-envío ===
   // ======================================
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+    clearSubmitError();
+    clearTurnstileError();
+
     if (!validateForm()) return;
 
-    // Limpiar autosave
-    clearAutoSave();
+    if (!turnstileToken) {
+      showTurnstileError('Complete la verificación de seguridad antes de enviar.');
+      document.getElementById('turnstile-container').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
 
-    // Ocultar barra de progreso
-    document.getElementById('progress-wrapper').style.display = 'none';
+    const submitBtn = document.getElementById('submit-btn');
+    const defaultText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Enviando...';
+    submitBtn.style.opacity = '0.7';
+    submitBtn.style.cursor = 'not-allowed';
 
-    // Animación de éxito
     const form = document.getElementById('activation-form');
     const success = document.getElementById('success-message');
 
-    form.style.opacity = '0';
-    form.style.transform = 'translateY(20px)';
-    form.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+    try {
+      const formData = new FormData(form);
+      formData.set('turnstileToken', turnstileToken);
+      formData.set('submittedAt', new Date().toISOString());
+      formData.set('source', 'onboarding-html');
 
-    setTimeout(() => {
-      form.style.display = 'none';
-      success.style.display = 'block';
-      success.scrollIntoView({ behavior: 'smooth' });
-    }, 400);
+      const response = await fetch(ONBOARDING_SUBMIT_ENDPOINT, {
+        method: 'POST',
+        body: formData,
+      });
+
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || 'No se pudo enviar el formulario.');
+      }
+
+      // Limpiar autosave solo cuando el backend confirma recepción
+      clearAutoSave();
+
+      // Ocultar barra de progreso
+      document.getElementById('progress-wrapper').style.display = 'none';
+
+      // Animación de éxito
+      form.style.opacity = '0';
+      form.style.transform = 'translateY(20px)';
+      form.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+
+      setTimeout(() => {
+        form.style.display = 'none';
+        success.style.display = 'block';
+        success.scrollIntoView({ behavior: 'smooth' });
+      }, 400);
+    } catch (error) {
+      console.error('Onboarding submit error:', error);
+      showSubmitError('No pudimos enviar la información ahora. Revise su conexión e intente nuevamente.');
+      resetTurnstile();
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = defaultText;
+      submitBtn.style.opacity = '1';
+      submitBtn.style.cursor = 'pointer';
+    }
   }
 
   // ======================================
@@ -1430,12 +1562,8 @@
   document.addEventListener('DOMContentLoaded', () => {
     // Bind submit
     const form = document.getElementById('activation-form');
-    form.addEventListener('submit', (e) => {
-      handleSubmit(e);
-      // Limpiar autosave al enviar exitosamente
-      if (document.getElementById('success-message').style.display === 'block') {
-        clearAutoSave();
-      }
+    form.addEventListener('submit', async (e) => {
+      await handleSubmit(e);
     });
 
     // Ocultar todos los campos condicionales inicialmente
@@ -1461,6 +1589,9 @@
 
     // Restaurar datos guardados
     setTimeout(() => autoRestore(), 300);
+
+    // Inicializar captcha anti-bot
+    initTurnstile();
 
     // Bind autosave a cambios del formulario
     form.addEventListener('input', autoSave);
